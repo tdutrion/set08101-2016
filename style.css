@@ -1,0 +1,45 @@
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro|Open+Sans);
+html {
+  padding: 5%;
+}
+img#logo {
+  float: right;
+}
+* { font-family: 'Source Sans Pro', sans-serif; }
+h1, h2 {
+  clear: both;
+  text-align: center;
+  font-family: 'Open Sans', sans-serif;
+}
+nav ul { list-style:none; text-align:center; padding: 0; margin: 0; }
+nav ul li { display:inline; }
+nav ul li:not(:first-child)::before { content: " - "; }
+nav ul li a { text-decoration:none; color: black; }
+nav ul li a:hover { text-decoration:underline; }
+
+code {
+  color:#c7254e;
+  background-color:#f9f2f4;
+  border-radius:4px
+}
+code {
+  padding:2px 4px;
+}
+pre {
+  display:block;
+  margin:0 0 10px;
+  word-break:break-all;
+  word-wrap:break-word;
+  color:#333;
+  background-color:#f5f5f5;
+  border:1px solid #ccc;
+  border-radius:4px;
+}
+pre code {
+  padding:0;
+  font-size:inherit;
+  color:inherit;
+  white-space:pre-wrap;
+  background-color:transparent;
+  border-radius:0;
+}
