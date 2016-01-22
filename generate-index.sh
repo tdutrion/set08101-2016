@@ -13,7 +13,7 @@ echo "  <h1>SET08101 - 2016</h1>" >> $OUTPUT
 
 echo "  <h2>Lectures</h2>" >> $OUTPUT
 echo "  <nav>" >> $OUTPUT
-echo "    <ul>" >> $OUTPUT
+echo "    <ul class=\"list\">" >> $OUTPUT
 for filepath in `find "./lecture" -maxdepth 1 -mindepth 1 -type d| sort`; do
   name=`basename "${filepath//--/ }"`
   echo "      <li><a href=\"$filepath/index.html\" target=\"_blank\">$name</a></li>" >> $OUTPUT
