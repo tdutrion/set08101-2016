@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>SET08101 - Web Technologies - Lecture 04</title>
+
+		<meta name="description" content="Introduction to PHP: what is it, how to use it">
+		<meta name="author" content="Thomas Dutrion">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="../../css/reveal.css">
+		<link rel="stylesheet" href="../../css/theme/napier.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="../../lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? '../../css/print/pdf.css' : '../../css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h4>SET08101</h4>
+					<h1>Web Technologies</h1>
+					<h3>Introduction to PHP</h3>
+				</section>
+				<section>
+					<section>
+						<h2>Introduction</h2>
+					</section>
+					<section>
+						<h2>Static versus dynamic</h2>
+					</section>
+					<section>
+						<h2>Static</h2>
+						<ul>
+							<li>Slow to update</li>
+							<li>Not personalised to for the specific visitor</li>
+							<li>Good for showcasing websites that do not change often</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Dynamic</h2>
+						<ul>
+							<li>Requires to know how to develop static websites</li>
+							<li>Allows to retrieve data from other sources (databases, webservices)</li>
+							<li>Allows contributions from visitor/user</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Examples</h2>
+						<ul>
+							<li>Member zone</li>
+							<li>Forum board</li>
+							<li>News website</li>
+							<li>Newsletters</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Code example</h2>
+						<pre><code class="html">
+&lt;!doctype html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;meta charset="utf-8"&gt;
+		&lt;title&gt;Lecture 04 - Example 01&lt;/title&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+		&lt;h1&gt;Welcome on the website&lt;/h1&gt;
+		&lt;p&gt;Today is {{ current_date }}&lt;/p&gt;
+	&lt;/body&gt;
+&lt;html&gt;
+						</code></pre>
+					</section>
+					<section>
+						<blockquote cite="Wikipedia">
+							PHP is a server-side scripting language
+						</blockquote>
+					</section>
+					<section>
+						<h2>Web request: static webpage</h2>
+						<img
+							src="static.png"
+							alt="Illustration: the client asks to the server, the server serves the static page."
+						>
+					</section>
+					<section>
+						<h2>Web request: dynamic webpage</h2>
+						<img
+							src="dynamic.png"
+							alt="Illustration: the client asks to the server, the server generates a static page using a server side language and serve the static content generated."
+						>
+					</section>
+					<section>
+						<h2>Server side languages examples</h2>
+						<img
+							src="languages.png"
+							alt="Illustration: market shares for server side languages."
+						>
+						<p>Retrieved from <a href="http://w3techs.com/technologies/overview/programming_language/all" target="_blank">http://w3techs.com/technologies/overview/programming_language/all</a></p>
+					</section>
+					<section>
+						<h2>Reasons to choose PHP</h2>
+						<ul>
+							<li>Very large community</li>
+							<li>Extensive documentation</li>
+							<li>Free and open source</li>
+							<li>Available on many operating systems</li>
+							<li>Available on many HTTP servers (Apache, Nginx, IIS, ...)</li>
+							<li>Considered easy to learn (for the basics)</li>
+							<li>Allows to build large and complex systems</li>
+						</uL>
+					</section>
+					<section>
+						<h2>Code example with PHP</h2>
+						<pre><code class="html">
+&lt;!doctype html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;meta charset="utf-8"&gt;
+		&lt;title&gt;Lecture 04 - Example 01&lt;/title&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+		&lt;h1&gt;Welcome on the website&lt;/h1&gt;
+		&lt;p&gt;Today is &lt;?php echo date('d/m/Y H:i'); ?&gt;&lt;/p&gt;
+	&lt;/body&gt;
+&lt;html&gt;
+						</code></pre>
+						<p>Copy paste this code in <a href="https://3v4l.org/" target="_blank">3v4l</a> to see the html resulting from the execution with different versions of PHP.</p>
+					</section>
+					<section>
+						<h2>Questions?</h2>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Getting started</h2>
+					</section>
+					<section>
+						<h2>Knowledge requirements</h2>
+						<ul>
+							<li>Create HTML files</li>
+							<li>Manage files on a computer</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Software requirements</h2>
+						<ul>
+							<li>A text editor</li>
+							<li>A web browser</li>
+							<li>A web server</li>
+							<li>A PHP interpreter</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Questions?</h2>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>PHP: basics (syntax and structures)</h2>
+					</section>
+					<section>
+						<h2>Syntax: PHP tags</h2>
+						<p>PHP code is written in text files. To enable the PHP interpretation, one use the PHP tags.
+						<pre><code class="php">&lt;?php</code></pre>
+						<pre><code class="php">?&gt;</code></pre>
+						<p class="fragment" data-fragment-index="0">
+							NB: PHP use to have other opening tags (<a href="https://secure.php.net/manual/en/language.basic-syntax.phptags.php" target="_blank">short open tags, asp tags</a>), please do not use them anymore (except for the echo shortcut <code class="php"><?= date('d/m/Y') ?></code>).
+						</p>
+						<p class="fragment" data-fragment-index="1">
+							NB: the closing tag is not required if there is nothing else than PHP at the end of the file. It is consider as a <a href="http://www.sitepoint.com/should-you-close-your-php-code-tags/" target="_blank">good practice not use them when they are not required</a>.
+						</p>
+					</section>
+					<section>
+						<h2>Instructions</h2>
+						<p>An instruction in a programming language is a set of characters that correspond to the machine commands.</p>
+						<p class="fragment" data-fragment-index="0"><a href="https://secure.php.net/manual/en/language.basic-syntax.instruction-separation.php" target="_blank">In PHP, instructions are separated with a semi-column</a>. That said, closing tags and end of files automatically imply the end of the instruction, therefore the semi-column is not required in these cases.</p>
+						<pre class="fragment" data-fragment-index="1"><code class="php">&lt;?php echo date('d/m/Y'); ?&gt;</code></pre>
+						<pre class="fragment" data-fragment-index="2"><code class="php">&lt;?php echo date('d/m/Y') ?&gt;</code></pre>
+						<pre class="fragment" data-fragment-index="3"><code class="php">&lt;?php echo date('d/m/Y')</code></pre>
+					</section>
+					<section>
+						<h2>Comments</h2>
+						<p>PHP supports 'C', 'C++' and Unix shell-style (Perl style) comments.</p>
+						<pre><code class="php">
+&lt;?php
+  echo 'This is a test'; // This is a one-line c++ style comment
+  /* This is a multi line comment
+    yet another line of comment */
+  echo 'This is yet another test';
+  echo 'One Final Test'; # This is a one-line shell-style comment
+
+  //======================================================================
+  // CATEGORY LARGE FONT
+  //======================================================================
+
+  /* Title Here Notice the First Letters are Capitalized */
+
+  /*
+   * This is a detailed explanation
+   * of something that should require
+   * several paragraphs of information.
+   */
+						</code></pre>
+						<a href="https://secure.php.net/manual/en/language.basic-syntax.comments.php" target="_blank">https://secure.php.net/manual/en/language.basic-syntax.comments.php</a>
+					</section>
+					<section>
+						<h2>Types</h2>
+						<p>PHP supports 8 primitive types:</p>
+						<ul>
+							<li>scalar types
+								<ul>
+									<li>boolean</li>
+									<li>integer</li>
+									<li>float (historically named double)</li>
+									<li>string</li>
+								</ul>
+							</li>
+							<li>compound types
+								<ul>
+									<li>array</li>
+									<li>object</li>
+								</ul>
+							</li>
+							<li>special types
+								<ul>
+									<li>resource</li>
+									<li>NULL</li>
+								</ul>
+							</li>
+						</ul>
+						<p>Everything is in the <a href="https://secure.php.net/manual/en/language.types.intro.php" target="_blank">documentation</a> if you want to learn more.</p>
+					</section>
+					<section>
+						<h2>Variables</h2>
+						<pre><code class="php">
+&lt;?php
+  $var = 'Bob';
+  $Var = 'Joe';
+  echo "$var, $Var";      // outputs "Bob, Joe"
+
+  $4site = 'not yet';     // invalid; starts with a number
+  $_4site = 'not yet';    // valid; starts with an underscore
+  $täyte = 'mansikka';    // valid; 'ä' is (Extended) ASCII 228.
+						</code></pre>
+						<a href="https://secure.php.net/manual/en/language.variables.basics.php" target="_blank">https://secure.php.net/manual/en/language.variables.basics.php</a>
+					</section>
+					<section>
+						<h2>Constants</h2>
+						<pre><code class="php">
+&lt;?php
+  define("CONSTANT", "Hello world.");
+  echo CONSTANT; // outputs "Hello world."
+						</code></pre>
+						<pre><code class="php">
+&lt;?php
+  const CONSTANT = 'Hello world.';
+  echo CONSTANT; // outputs "Hello world."
+						</code></pre>
+						<a href="https://secure.php.net/manual/en/language.constants.syntax.php" target="_blank">https://secure.php.net/manual/en/language.constants.syntax.php</a>
+					</section>
+					<section>
+						<h2>Expressions</h2>
+						<blockquote>The simplest yet most accurate way to define an expression is "anything that has a value".</blockquote>
+						<a href="https://secure.php.net/manual/en/language.expressions.php" target="_blank">https://secure.php.net/manual/en/language.expressions.php</a>
+					</section>
+					<section>
+						<h2>Operators</h2>
+						<p><a href="http://www.w3schools.com/php/php_operators.asp" target="_blank">PHP operators on W3Schools</a></p>
+						<p><a href="https://secure.php.net/manual/en/language.operators.php" target="_blank">https://secure.php.net/manual/en/language.operators.php</a></p>
+					</section>
+					<section>
+						<h2>Control structures</h2>
+						<a href="https://secure.php.net/manual/en/language.control-structures.php">https://secure.php.net/manual/en/language.control-structures.php</a>
+					</section>
+					<section>
+						<h2>Functions</h2>
+						<em>PHP 5:</em>
+						<pre><code class="php">
+&lt;?php
+  function helloWorld($username) {
+    return "Hello world {$username}";
+  }
+
+  echo helloWorld('Thomas');
+						</code></pre>
+						<em>PHP 7:</em>
+						<pre><code class="php">
+&lt;?php
+  function helloWorld(string $username) : string {
+    return "Hello world {$username}";
+  }
+
+  echo helloWorld('Thomas');
+						</code></pre>
+						<a href="https://secure.php.net/manual/en/language.functions.php" target="_blank">https://secure.php.net/manual/en/language.functions.php</a>
+					</section>
+					<section>
+						<h2>Questions?</h2>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Example 1/2</h2>
+						<em>index.php:</em>
+						<pre><code class="php">
+&lt;?php
+  /* @var $photos array */
+  $photos = array(
+    'black on white' => 'http://placehold.it/100x100/ffffff/000000',
+    'white on black' => 'http://placehold.it/100x100/000000/ffffff',
+  );
+?&gt;
+						</code></pre>
+					</section>
+					<section>
+						<h2>Example 2/2</h2>
+						<em>index.php (follow up):</em>
+						<pre><code class="php">
+&lt;!doctype html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;meta charset="utf-8"&gt;
+    &lt;title&gt;Lecture 04 - Example 02&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Image gallery&lt;/h1&gt;
+    &lt;div&gt;
+      &lt;?php foreach ($photos as $label => $photo): ?&gt;
+      &lt;img src="&lt;?= $photo ?&gt;" title="&lt;?= $label ?&gt;" alt="&lt;?= $label ?&gt;"&gt;
+      &lt;?php endforeach ?&gt;
+    &lt;/div&gt;
+    &lt;p&gt;Today is &lt;?php echo date('d/m/Y H:i'); ?&gt;&lt;/p&gt;
+  &lt;/body&gt;
+&lt;html&gt;
+						</code></pre>
+					</section>
+				</section>
+				<section>
+					<h2>Further reading</h2>
+					<ul>
+						<li><a href="https://secure.php.net/manual/en/langref.php" target="_blank">PHP official documentation</a></li>
+					</ul>
+				</section>
+			</div>
+		</div>
+		<style>
+			.reveal table th, .reveal table td {
+				font-size: 0.6em;
+			}
+			.splitted {
+				width: 100%;
+			}
+			.splitted > div {
+				width: 50%;
+				float: left;
+			}
+			.splitted > div blockquote {
+				font-size: 0.8em;
+			}
+			.reveal table img {
+				width: 100%;
+				border: none;
+				-webkit-box-shadow: none;
+				-moz-box-shadow: none;
+				box-shadow: none;
+			}
+		</style>
+		<script src="../../lib/js/head.min.js"></script>
+		<script src="../../js/reveal.js"></script>
+		<script>
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				slideNumber: true,
+				slideNumber: 'c / t',
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+				dependencies: [
+					{ src: '../../lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: '../../plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../../plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../../plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: '../../plugin/zoom-js/zoom.js', async: true },
+					{ src: '../../plugin/notes/notes.js', async: true }
+				]
+			});
+		</script>
+      <a href="https://github.com/tdutrion/set08101-2016"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/567c3a48d796e2fc06ea80409cc9dd82bf714434/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png"></a>
+	</body>
+</html>
