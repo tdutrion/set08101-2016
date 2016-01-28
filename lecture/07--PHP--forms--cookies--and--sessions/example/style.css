@@ -1,0 +1,13 @@
+body {
+    margin-top: 50px;
+}
+ul:first-of-type {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+}
+ul:first-of-type li {
+    list-style-type: none;
+    display: inline;
+}

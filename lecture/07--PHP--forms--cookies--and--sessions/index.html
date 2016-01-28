@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>SET08101 - Web Technologies - Lecture 07</title>
+
+		<meta name="description" content="Going further with PHP: Forms, sessions and cookies">
+		<meta name="author" content="Thomas Dutrion">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="../../css/reveal.css">
+		<link rel="stylesheet" href="../../css/theme/napier.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="../../lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? '../../css/print/pdf.css' : '../../css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h4>SET08101</h4>
+					<h1>Web Technologies</h1>
+					<h3>Forms, sessions and cookies</h3>
+				</section>
+				<section>
+					<section>
+						<h2>Last week</h2>
+						<ul>
+							<li>A simple website</li>
+							<li>Lists and tables from arrays of data</li>
+						</ul>
+					</section>
+					<section>
+						<p>Not very dynamic...</p>
+					</section>
+					<section>
+						<h2>Make it more dynamic</h2>
+						<ul>
+							<li>Data from database (next week)</li>
+							<li>Data from webservice (try it yourself)</li>
+							<li>Information from the user (forms)</li>
+							<li>Information about the user (sessions and cookies)</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Questions?</h2>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Simple parameters: the query string</h2>
+					</section>
+					<section>
+						<blockquote>On the World Wide Web, a query string is the part of a
+							uniform resource locator (URL) containing data that does not fit
+							conveniently into a hierarchical path structure. The query string
+							commonly includes fields added to a base URI by a Web browser or
+							other client application, for example as part of an HTML form.
+						</blockquote>
+						<p>From <a href="https://en.wikipedia.org/wiki/Query_string" target="_blank">Wikipedia</a></p>
+					</section>
+					<section>
+						<h2>Example</h2>
+						<pre><code>http://www.modules.napier.ac.uk/Home.aspx?ID=12&Letter=003</code></pre>
+						<table>
+							<caption>Parameters</caption>
+							<tr>
+								<th>Key</th>
+								<th>Value</th>
+							</tr>
+							<tr>
+								<td>ID</td>
+								<td>12</td>
+							</tr>
+							<tr>
+								<td>Letter</td>
+								<td>003</td>
+							</tr>
+						</table>
+					</section>
+					<section>
+						<h2>Using last week's code</h2>
+						<ul>
+							<li>Copy <a href="https://github.com/tdutrion/set08101-2016/blob/gh-pages/lecture/07--PHP--forms--cookies--and--sessions/example/staff.php" target="_blank"><code>staff.php</code></a> to <code>staff-detail.php</code></li>
+							<li>Update links in <code>staff.php</code></li>
+							<li>Retrieve the parameters from the url using <a href="http://php.net/manual/en/reserved.variables.request.php" target="_blank"><code>$_REQUEST</code></a>, <a href="http://php.net/manual/en/reserved.variables.get.php" target="_blank"><code>$_GET</code></a> or <a href="http://php.net/manual/en/function.filter-input.php" target="_blank"></code>input_filter(INPUT_GET,...)</code></a></li>
+							<li>Use <a href="http://php.net/manual/en/function.var-dump.php" target="_blank"><code>var_dump</code></a> to see the data recieved in <code>staff-detail.php</code></li>
+							<li>Filter results based on the parameters</li>
+						</ul>
+					</section>
+					<section>
+						<h2><code>staff.php</code></h2>
+						<pre><code class="php">&lt;?php foreach ($lecturers as $key => $lecturer): ?&gt;
+    &lt;tr&gt;
+        &lt;td&gt;
+            &lt;a href="staff-detail.php?lecturer=&lt;?php echo $key; ?&gt;"&gt;
+                &lt;?php echo $lecturer->surname; ?&gt;
+            &lt;/a&gt;
+        &lt;/td&gt;
+        &lt;td&gt;&lt;?php echo $lecturer->firstname; ?&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;?php echo $lecturer->office; ?&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;?php echo $lecturer->phone; ?&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;?php endforeach; ?&gt;</code></pre>
+					</section>
+					<section>
+						<h2><code>staff-detail.php</code></h2>
+						<pre><code class="php">&lt;?php
+    require 'src/Lecturer.php';
+
+    $lecturers = [
+        new Lecturer('Cumming', 'Andrew', 'c49', '2753'),
+        new Lecturer('Dutrion', 'Thomas'),
+    ];
+
+    var_dump(filter_input(INPUT_GET, 'lecturer', FILTER_SANITIZE_NUMBER_INT));
+?&gt;</code></pre>
+					</section>
+					<section>
+						<h2><code>staff-detail.php (1/2)</code></h2>
+						<pre><code class="php">&lt;?php
+  require 'src/Lecturer.php';
+
+  $lecturers = [
+    new Lecturer('Cumming', 'Andrew', 'c49', '2753'),
+    new Lecturer('Dutrion', 'Thomas'),
+  ];
+
+  $lecturerId = (int)filter_input(INPUT_GET, 'lecturer', FILTER_SANITIZE_NUMBER_INT);
+  if (!isset($lecturers[$lecturerId])) {
+    throw new Exception('Unable to find the specified lecturer');
+  }
+  $lecturer = $lecturers[$lecturerId];
+?&gt;</code></pre>
+					</section>
+					<section>
+						<h2><code>staff-detail.php (2/2)</code></h2>
+    				<pre><code class="php">&lt;h1&gt;&lt;?php echo &quot;{$lecturer-&gt;firstname} {$lecturer-&gt;surname}&quot;; ?&gt;&lt;/h1&gt;
+&lt;table&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Office&lt;/th&gt;
+    &lt;th&gt;Phone&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;&lt;?php echo $lecturer-&gt;office; ?&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;?php echo $lecturer-&gt;phone; ?&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;</code></pre>
+					</section>
+					<section>
+						<h2>Alternative</h2>
+						<p>use</p>
+						<pre><code class="php">intval($_GET['lecturer']);</code></pre>
+						<p>instead of</p>
+						<pre><code class="php">(int)filter_input(INPUT_GET, 'lecturer', FILTER_SANITIZE_NUMBER_INT);</code></pre>
+					</section>
+					<section>
+						<h2>Questions?</h2>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Forms</h2>
+					</section>
+					<section>
+						<h2>HTML forms</h2>
+						<ul>
+							<li>
+								Values through URL
+								<pre><code>&lt;form method="get"&gt;
+    &lt;input type="text" name="field"&gt;
+&lt;/form&gt;</code></pre>
+							</li>
+							<li>
+								Values through HTTP request body
+								<pre><code>&lt;form method="post"&gt;
+    &lt;input type="text" name="field"&gt;
+&lt;/form&gt;</code></pre>
+							</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Example 1: GET</h2>
+						<pre><code class="php">&lt;?php
+if (isset($_GET['username'])) {
+  die($_GET['username']);
+}
+?&gt;
+&lt;form method="get"&gt;
+  &lt;label for="username"&gt;Username&lt;/label&gt;
+  &lt;input type="text" name="username" id="username"&gt;
+&lt;/form&gt;
+</code></pre>
+					</section>
+					<section>
+						<h2>Example 2: POST</h2>
+						<pre><code class="php">&lt;?php
+if (isset($_POST['username'])) {
+  die($_POST['username']);
+}
+?&gt;
+&lt;form method="post"&gt;
+  &lt;label for="username"&gt;Username&lt;/label&gt;
+  &lt;input type="text" name="username" id="username"&gt;
+&lt;/form&gt;
+</code></pre>
+					</section>
+					<section>
+						<h2>Security</h2>
+						<p><a href="https://www.owasp.org/index.php/Don%27t_trust_user_input" target="_blank">Never trust user input</a></p>
+					</section>
+					<section>
+						<h2>Questions?</h2>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Saving user specific details</h2>
+					</section>
+					<section>
+						<h2>Server vs Client side</h2>
+						<table>
+							<tr>
+								<td>Server side</td>
+								<td>sessions</td>
+								<td>can only be changed from the script</td>
+							</tr>
+							<tr>
+								<td>Client side</td>
+								<td>cookies</td>
+								<td>can be read/modified by the user</td>
+							</tr>
+						</table>
+					</section>
+					<section>
+						<h2>Legal aspects</h2>
+						<p>Watch out for the cookie law: not really enforced (not even by the government), but still here.</p>
+						<p>The <a href="http://ec.europa.eu/ipg/basics/legal/cookies/index_en.htm#section_2" target="_blank">European legislation on cookies</a> offers exemption for cookies used to link to a session.</p>
+					</section>
+					<section>
+						<h2>Using a session</h2>
+						<pre><code class="php">&lt;?php
+session_save_path(__DIR__ . '/sessions');
+session_start();
+$currentUsername = null;
+if (isset($_POST['username'])) {
+  $_SESSION['username'] = $_POST['username'];
+}
+if (isset($_SESSION['username'])) {
+  $currentUsername = $_SESSION['username'];
+}
+if ($currentUsername) {
+  echo "&lt;h1&gt;$username&lt;/h1&gt;";
+}
+?&gt;
+&lt;form method="post"&gt;
+  &lt;label for="username"&gt;Change username&lt;/label&gt;
+  &lt;input type="text" name="username" id="username"&gt;
+&lt;/form&gt;</code></pre>
+					</section>
+					<section>
+						<h2>Using a session</h2>
+						<img src="session-empty.png" alt="Cookie to link to session">
+					</section>
+					<section>
+						<h2>Using a cookie</h2>
+							<pre><code class="php">&lt;?php
+if (!isset($_COOKIE['background-color']) && !isset($_COOKIE['already_set'])) {
+  $expire = time() + 15; // 15 secondes
+  setcookie("background-color", "purple", $expire);
+  $expire = time() + 60 * 60 * 24; // 1 day
+  setcookie("already_set", "true", $expire);
+}
+$background = isset($_COOKIE['background-color']) ?
+  $_COOKIE['background-color'] :
+  'silver';
+?&gt;
+&lt;!doctype html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+  &lt;/head&gt;
+  &lt;body style="background-color: &lt;?php echo $background; ?&gt;"&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+					</section>
+					<section>Questions?</section>
+				</section>
+				<section>
+					<h2>Further reading</h2>
+					<ul>
+						<li>
+							<a href="https://github.com/tdutrion/set08101-2016/tree/gh-pages/lecture/07--PHP--forms--cookies--and--sessions/example" target="_blank">
+								Read the code of the lecture example
+							</a>
+						</li>
+						<li><a href="http://php.net/manual/en/tutorial.forms.php" target="_blank">Official tutorial on forms</a></li>
+						<li><a href="http://phpsecurity.readthedocs.org/en/latest/Input-Validation.html" target="_blank">PHPSecurity: input validation</a></li>
+					</ul>
+				</section>
+			</div>
+		</div>
+		<style>
+			.reveal table th, .reveal table td {
+				font-size: 0.6em;
+			}
+			.splitted {
+				width: 100%;
+			}
+			.splitted > div {
+				width: 50%;
+				float: left;
+			}
+			.splitted > div blockquote {
+				font-size: 0.8em;
+			}
+			.reveal table img {
+				width: 100%;
+				border: none;
+				-webkit-box-shadow: none;
+				-moz-box-shadow: none;
+				box-shadow: none;
+			}
+		</style>
+		<script src="../../lib/js/head.min.js"></script>
+		<script src="../../js/reveal.js"></script>
+		<script>
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				slideNumber: true,
+				slideNumber: 'c / t',
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+				dependencies: [
+					{ src: '../../lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: '../../plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../../plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../../plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: '../../plugin/zoom-js/zoom.js', async: true },
+					{ src: '../../plugin/notes/notes.js', async: true }
+				]
+			});
+		</script>
+      <a href="https://github.com/tdutrion/set08101-2016"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/567c3a48d796e2fc06ea80409cc9dd82bf714434/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png"></a>
+	</body>
+</html>
