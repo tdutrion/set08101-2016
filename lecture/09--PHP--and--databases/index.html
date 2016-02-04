@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>SET08101 - Web Technologies - Lecture 09</title>
+
+		<meta name="description" content="Going further with PHP: Databases">
+		<meta name="author" content="Thomas Dutrion">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="../../css/reveal.css">
+		<link rel="stylesheet" href="../../css/theme/napier.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="../../lib/css/github.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? '../../css/print/pdf.css' : '../../css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h4>SET08101</h4>
+					<h1>Web Technologies</h1>
+					<h3>Databases</h3>
+				</section>
+				<section>
+					<section>
+						<h2>Simple dynamic website</h2>
+						<ul>
+							<li>A simple website</li>
+							<li>Lists and tables from arrays of data</li>
+							<li>User input (forms and url parameters)</li>
+							<li>Sessions</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Make it more dynamic</h2>
+						<ul>
+							<li>Data from database</li>
+							<li>Data from webservice (try it yourself)</li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Databases</h2>
+					</section>
+					<section>
+						<h3>Supported databases</h3>
+						<ul>
+							<li>Mysql</li>
+							<li>Postgresql</li>
+							<li>Sqlite3</li>
+							<li>Mssql</li>
+							<li>MongoDB</li>
+							<li><a href="http://www.php.net/manual/en/refs.database.vendors.php" target="_blank">...</a></li>
+						</ul>
+					</section>
+					<section>
+						<p>Each database management system has some advantages and inconvenients.</p>
+						<p>You will only experience Mysql in this modules, but some examples in the lecture will use Postgresql.</p>
+					</section>
+					<section>
+						<h3>Install a connector</h3>
+						<h4>WAMP server on Windows</h4>
+						<img
+						    src="php-enable-mysqli-wamp.png"
+						    alt="Left click on Wamp, then choose PHP, PHP extensions, and then choose the appropriate extension"
+					  >
+						<p>The PHP Mysql connector is installed by default on WAMP, but this would be required to enable access to Postgresql for instance.</p>
+					</section>
+					<section>
+						<h3>Install a connector</h3>
+						<h4>on Ubuntu</h4>
+						<pre><code class="bash">sudo apt-cache search php5-mysql*</code></pre>
+						<pre><code class="bash">
+php5-mysql - MySQL module for php5
+php5-mysqlnd - MySQL module for php5 (Native Driver)
+php5-mysqlnd-ms - MySQL replication and load balancing module for PHP
+						</code></pre>
+						<pre><code class="bash">sudo apt-get install php5-mysqlnd</code></pre>
+					</section>
+					<section>
+						<h2>Questions?</h2>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Mysql Original</h2>
+						<a href="https://secure.php.net/manual/en/ref.mysql.php" target="_blank">documentation for mysql_* functions</a>
+					</section>
+					<section>
+						<h3>All you need to know</h3>
+						<img src="php-mysql_-deprecation-removal.png" alt="mysql_* functions can not be use anymore (deprecated in PHP 5.5, removed in PHP 7)">
+					</section>
+					<section>
+						<h2>Questions?</h2>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>MySQL Improved Extension</h2>
+						<a href="https://secure.php.net/manual/en/book.mysqli.php" target="_blank">documentation for mysqli_* functions</a>
+					</section>
+					<section>
+						<h3>Dual mode</h3>
+						<ul>
+							<li>Procedural</li>
+							<li>Object oriented</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Example: procedural</h3>
+						<pre><code class="php">&lt;?php
+$mysqli = mysqli_connect('localhost', 'username', 'password', 'database_name');
+if (mysqli_connect_errno($mysqli)) {
+    echo 'Failed to connect to MySQL: ' . mysqli_connect_error();
+}
+
+$res = mysqli_query($mysqli, "SELECT 'A world full of ' AS _msg FROM DUAL");
+$row = mysqli_fetch_assoc($res);
+echo $row['_msg'];</code></pre>
+					</section>
+					<section>
+						<h3>Example: object oriented</h3>
+						<pre><code class="php">&lt;?php
+$mysqli = new mysqli('localhost', 'username', 'password', 'database_name');
+if ($mysqli->connect_errno) {
+    echo 'Failed to connect to MySQL: ' . $mysqli->connect_error;
+}
+
+$res = $mysqli->query("SELECT 'choices to please everybody.' AS _msg FROM DUAL");
+$row = $res->fetch_assoc();
+echo $row['_msg'];</code></pre>
+					</section>
+					<section>
+						<h3>Step by step</h3>
+						<ol>
+							<li class="fragment">Open the connection (create an object of type mysqli): <code>mysqli_connect</code> or <code>new Mysqli()</code></li>
+							<li class="fragment">Check for errors (connection could not be created): <code>mysqli_connect_errno</code> or <code>$mysqli->connect_errno</code></li>
+							<li class="fragment">Send SQL queries: <code>mysqli_query</code> or <code>$res = $mysqli->query</code></li>
+							<li class="fragment">Fetch results: <code>mysqli_fetch_assoc</code> or <code>$res->fetch_assoc</code></li>
+						</ol>
+					</section>
+					<section>
+						<h3>Real example: database</h3>
+						<pre><code class="sql">
+CREATE TABLE lecturer (
+    id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    firstname VARCHAR(30) NOT NULL,
+    lastname VARCHAR(30) NOT NULL,
+    office VARCHAR(30) DEFAULT NULL,
+    phone VARCHAR(30) DEFAULT NULL
+);
+						</code></pre>
+						<pre><code class="sql">
+INSERT INTO lecturer (firstname, lastname, office, phone) VALUES
+    ('Andrew', 'Cumming', 'c49', '2753'),
+    ('Thomas', 'Dutrion', NULL, NULL);
+						</code></pre>
+					</section>
+					<section>
+						<h3>Real example: database</h3>
+						<pre><code class="sql">select * from lecturer;</code></pre>
+						<pre><code>
++----+-----------+----------+--------+-------+
+| id | firstname | lastname | office | phone |
++----+-----------+----------+--------+-------+
+|  1 | Andrew    | Cumming  | c49    | 2753  |
+|  2 | Thomas    | Dutrion  | NULL   | NULL  |
++----+-----------+----------+--------+-------+
+2 rows in set (0.00 sec)
+						</code></pre>
+					</section>
+					<section>
+						<h3>Real example: existing code</h3>
+						<pre><code class="php">&lt;?php
+  require 'src/Lecturer.php';
+
+  $lecturers = [
+    new Lecturer('Cumming', 'Andrew', 'c49', '2753'),
+    new Lecturer('Dutrion', 'Thomas'),
+  ];
+?&gt;</code></pre>
+						<p>The data source (array) is independant from its display (foreach), therefore we only need to replace the array with data from the database.</p>
+					</section>
+					<section>
+						<h3>Real example: retrieve from database</h3>
+						<pre><code class="php">&lt;?php
+  require 'src/Lecturer.php';
+
+  $mysqli = new mysqli('localhost', 'user', 'password', 'database');
+  if ($mysqli->connect_errno) {
+    header("HTTP/1.1 500 Internal Server Error");
+    die("Failed to connect to MySQL: {$mysqli->connect_error}");
+  }
+
+  $res = $mysqli->query(
+    "SELECT id, firstname, lastname, office, phone FROM lecturer"
+  );
+  $lecturers = [];
+  while($row = $res->fetch_assoc()) {
+    $lecturers[$row['id']] = new Lecturer(
+      $row['firstname'], $row['lastname'], $row['office'], $row['phone']
+    );
+  }
+?&gt;</code></pre>
+					</section>
+					<section>
+						<h3>Real example: existing code</h3>
+						<pre><code class="php">&lt;?php
+  require 'src/Lecturer.php';
+
+  $lecturers = [
+    new Lecturer('Cumming', 'Andrew', 'c49', '2753'),
+    new Lecturer('Dutrion', 'Thomas'),
+  ];
+
+  $lecturerId = (int)filter_input(INPUT_GET, 'lecturer', FILTER_SANITIZE_NUMBER_INT);
+  if (!isset($lecturers[$lecturerId])) {
+    throw new Exception('Unable to find the specified lecturer');
+  }
+  $lecturer = $lecturers[$lecturerId];
+?&gt;</code></pre>
+					</section>
+					<section>
+						<h3>Real example: retrieve from database</h3>
+						<pre><code class="php">&lt;?php
+  require 'src/Lecturer.php';
+
+  $lecturerId = (int)filter_input(INPUT_GET, 'lecturer', FILTER_SANITIZE_NUMBER_INT);
+  $mysqli = new mysqli('localhost', 'username', 'password', 'database');
+  if ($mysqli->connect_errno) {
+    header("HTTP/1.1 500 Internal Server Error");
+    die("Failed to connect to MySQL: {$mysqli->connect_error}");
+  }
+
+  $result = $mysqli->query("SELECT * FROM lecturer WHERE id = $lecturerId");
+  $lecturerData = $result->fetch_assoc();
+	if (!$lecturerData) {
+    throw new Exception('Unable to find the specified lecturer');
+  }
+  $lecturer = new Lecturer(
+    $lecturerData['firstname'], $lecturerData['lastname'],
+		$lecturerData['office'], $lecturerData['phone']
+  );
+?&gt;</code></pre>
+					</section>
+					<section>
+						<h2>Questions?</h2>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Problem: how to use Postgresql</h2>
+					</section>
+					<section>
+						<h3>Postgresql and PHP</h3>
+						<ul>
+							<li>Add connector and <a href="https://secure.php.net/manual/en/ref.pgsql.php" target="_blank">use pg_* function</a></li>
+							<li>Add connector and <a href="https://secure.php.net/manual/en/ref.pdo-pgsql.php" target="_blank">use pdo_pgsql</a></li>
+						</ul>
+						<p>Using PDO allows to abstract the database engine and use the same code with a different configuration.</p>
+					</section>
+					<section>
+						<h3>Refactor</h3>
+						<p>Move the code out of the process, to another script.</p>
+						<pre><code class="php">&lt;?php
+class DbConnection extends PDO
+{
+  public function __construct($file = 'config.ini')
+  {
+    if (!$settings = parse_ini_file(dirname(__FILE__) . '/' . $file, TRUE)) {
+      throw new exception('Unable to open ' . $file . '.');
+    }
+    $dns = $settings['database']['driver'] .
+      ':host=' . $settings['database']['host'] .
+      ((!empty($settings['database']['port'])) ? (';port=' . $settings['database']['port']) : '') .
+      ';dbname=' . $settings['database']['schema'];
+    parent::__construct($dns, $settings['database']['username'], $settings['database']['password']);
+  }
+}</code></pre>
+					</section>
+					<section>
+						<h3>Create a configuration file</h3>
+						<pre><code class="ini">[database]
+driver = pgsql
+host = localhost
+schema = db_schema
+username = user
+password = secret</code></pre>
+					</section>
+					<section>
+						<h3>Import and use</h3>
+						<pre><code class="php">&lt;?php
+  require 'src/Lecturer.php';
+  require 'src/DbConnection.php';
+
+  $db = new DbConnection();
+  $lecturers = [];
+  $sql = 'SELECT id, firstname, lastname, office, phone FROM lecturer';
+  foreach ($db->query($sql) as $row) {
+    $lecturers[$row['id']] = new Lecturer(
+      $row['firstname'], $row['lastname'], $row['office'], $row['phone']
+    );
+  }
+?&gt;</code></pre>
+					</section>
+					<section>
+						<h3>Import and use</h3>
+						<pre><code class="php">&lt;?php
+  require 'src/Lecturer.php';
+  require 'src/DbConnection.php';
+
+  $lecturerId = (int)filter_input(INPUT_GET, 'lecturer', FILTER_SANITIZE_NUMBER_INT);
+  $db = new DbConnection();
+
+  $lecturerData = $db->query(
+    "SELECT * FROM lecturer WHERE id = $lecturerId"
+  )->fetch();
+
+  if (!$lecturerData) {
+    throw new Exception('Unable to find the specified lecturer');
+  }
+  $lecturer = new Lecturer(
+    $lecturerData['firstname'], $lecturerData['lastname'],
+    $lecturerData['office'], $lecturerData['phone']
+  );
+?&gt;</code></pre>
+					</section>
+					<section>Questions?</section>
+				</section>
+				<section>
+					<section>
+						<h2>Object-relational mapping (ORM)</h2>
+					</section>
+					<section>
+						<h3>Objective</h3>
+						<blockquote>accessing a relational database from an object-oriented language</blockquote>
+						<p>No more SQL queries and manual object hydration, abstract the persistence layer.</p>
+					</section>
+					<section>
+						<h3>Some ORMs</h3>
+						<ul>
+							<li>Doctrine</li>
+							<li>Eloquent</li>
+							<li>Propel</li>
+							<li>Redbeans</li>
+							<li>...</li>
+						</ul>
+						<p>In PHP, ORMs are libraries, collections of scripts and classes to include in the project.</p>
+					</section>
+					<section>
+						<h2>Example: Eloquent</h2>
+						<p>Download composer:</p>
+						<pre><code class="bash">php -r "readfile('https://getcomposer.org/installer');" | php</code></pre>
+						<p>Require Eloquent:</p>
+						<pre><code class="bash">php composer.phar illuminate/database</code></pre>
+						<p>Look at what has been downloaded:</p>
+						<pre><code class="bash">ls vendor/
+autoload.php	composer	doctrine	illuminate	nesbot		symfony</code></pre>
+					</section>
+					<section>
+						<h2>Example: Eloquent</h2>
+						<h3>Configure Eloquent</h3>
+						<code>src/Eloquent.php</code>
+						<pre><code class="php">&lt;?php
+require 'vendor/autoload.php';
+
+use Illuminate\Database\Capsule\Manager as Capsule;
+
+$capsule = new Capsule;
+
+$capsule->addConnection(array(
+    'driver'    => 'mysql',
+    'host'      => 'localhost',
+    'database'  => 'database_name',
+    'username'  => 'username',
+    'password'  => 'password',
+    'charset'   => 'utf8',
+    'collation' => 'utf8_unicode_ci',
+    'prefix'    => ''
+));
+
+$capsule->bootEloquent();</code></pre>
+					</section>
+					<section>
+						<h2>Example: Eloquent</h2>
+						<pre><code class="php">&lt;?php
+  namespace Model;
+  require 'src/Lecturer.php';
+  require 'src/Eloquent.php';
+  class Lecturer extends \Illuminate\Database\Eloquent\Model {
+    protected $table = 'lecturer';
+  }
+  $lecturers = \Model\Lecturer::all();
+?&gt;</code></pre>
+					</section>
+					<section>
+						<h2>Example: Eloquent</h2>
+						<pre><code class="php">&lt;?php
+  namespace Model;
+  require 'src/Lecturer.php';
+  require 'src/Eloquent.php';
+
+  class Lecturer extends \Illuminate\Database\Eloquent\Model {
+    protected $table = 'lecturer';
+  }
+
+  $lecturerId = (int)filter_input(INPUT_GET, 'lecturer', FILTER_SANITIZE_NUMBER_INT);
+  $lecturer = \Model\Lecturer::find($lecturerId);
+?&gt;</code></pre>
+					</section>
+					<section>
+						<h2>Questions?</h2>
+					</section>
+				</section>
+				<section>
+					<h2>Further reading</h2>
+					<ul>
+						<li>
+							<a href="https://github.com/tdutrion/set08101-2016/tree/gh-pages/lecture/09--PHP--and--databases/example" target="_blank">
+								Read the code of the lecture example
+							</a>
+						</li>
+						<li>
+							<a href="https://www.phproundtable.com/episode/orms-and-the-active-record-data-mapper-paradigms" target="_blank">
+								ORM: active record vs data mapper
+							</a>
+						</li>
+					</ul>
+				</section>
+			</div>
+		</div>
+		<style>
+			.reveal table th, .reveal table td {
+				font-size: 0.6em;
+			}
+			.splitted {
+				width: 100%;
+			}
+			.splitted > div {
+				width: 50%;
+				float: left;
+			}
+			.splitted > div blockquote {
+				font-size: 0.8em;
+			}
+			.reveal table img {
+				width: 100%;
+				border: none;
+				-webkit-box-shadow: none;
+				-moz-box-shadow: none;
+				box-shadow: none;
+			}
+		</style>
+		<script src="../../lib/js/head.min.js"></script>
+		<script src="../../js/reveal.js"></script>
+		<script>
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				slideNumber: true,
+				slideNumber: 'c / t',
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+				dependencies: [
+					{ src: '../../lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: '../../plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../../plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../../plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: '../../plugin/zoom-js/zoom.js', async: true },
+					{ src: '../../plugin/notes/notes.js', async: true }
+				]
+			});
+		</script>
+      <a href="https://github.com/tdutrion/set08101-2016"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/567c3a48d796e2fc06ea80409cc9dd82bf714434/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png"></a>
+	</body>
+</html>
