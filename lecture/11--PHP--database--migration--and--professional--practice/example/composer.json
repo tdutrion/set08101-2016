@@ -1,0 +1,16 @@
+{
+    "name": "example/autoload",
+    "authors": [
+        {
+            "name": "Thomas Dutrion",
+            "email": "t.dutrion@napier.ac.uk"
+        }
+    ],
+    "require": {
+        "fabpot/php-cs-fixer": "^1.11"
+    },
+    "autoload": {
+        "psr-4": {"Lib\\": "src/"}
+    }
+}
+
