@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>SET08101 - Web Technologies - Lecture 11</title>
+
+		<meta name="description" content="Going further with PHP: Databases migrations and professional practices">
+		<meta name="author" content="Thomas Dutrion">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="../../css/reveal.css">
+		<link rel="stylesheet" href="../../css/theme/napier.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="../../lib/css/github.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? '../../css/print/pdf.css' : '../../css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h4>SET08101</h4>
+					<h1>Web Technologies</h1>
+					<h3>Databases migrations</h3>
+					<h3>Professional practices</h3>
+				</section>
+				<section>
+					<section>
+						<h2>Last weeks</h2>
+						<ul>
+							<li>Create a simple website</li>
+							<li>Use user input</li>
+							<li>Fetch dynamic data from databases</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Organise your code</h2>
+						<ul>
+							<li>Source control (versioning)</li>
+							<li>Database migration</li>
+							<li>PSRs</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Employability Week</h2>
+						<h3>An eye on the market</h3>
+						<ul>
+							<li>Job offer analysis</li>
+							<li>Certifications</li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Source control</h2>
+					</section>
+					<section>
+						<h3>Version Control Systems</h3>
+						<ul>
+							<li>Backup your code</li>
+							<li>Browse revisions, rollback</li>
+							<li>Track modifications</li>
+							<li>Share your code</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Current systems</h3>
+						<ul>
+							<li>GIT</li>
+							<li>Subversion (SVN)</li>
+							<li>(Mercurial)</li>
+						</ul>
+					</section>
+					<section>
+						<h3>GIT</h3>
+						<ul>
+							<li>Decentralized (no main server)</li>
+							<li>Hosting or central repositories are remotes</li>
+							<li>Usually developers use local versions and push to a central hosted repository on Github, Bitbucket, Gitlab or similar.</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Example (1/2)</h3>
+						<p>Create a simple file (<code>index.php</code>):</p>
+						<pre><code class="html">&lt;?php
+$lecturers = [
+  'Andrew',
+];
+?&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;meta charset="utf-8"&gt;
+    &lt;title&gt;Example&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;/body&gt;
+    &lt;?php foreach ($lecturers as $lecturerName): ?&gt;
+      &lt;?php echo $lecturerName; ?&gt;&lt;br&gt;
+    &lt;?php endforeach; ?&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+					</section>
+					<section>
+						<h3>Example (2/2)</h3>
+						<p>Initialize the repository (local)</p>
+						<pre><code class="bash">git init</code></pre>
+						<p>Get the repository state</p>
+						<pre><code class="bash">git status</code></pre>
+						<p>Add your file to the repository</p>
+						<pre><code class="bash">git add index.php</code></pre>
+						<pre><code class="bash">git commit</code></pre>
+					</section>
+					<section>
+						<h2>Questions?</h2>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Database migrations</h2>
+					</section>
+					<section>
+						<h3>Concept</h3>
+						<p>Create and edit databases schemas incrementally, using versionned instructions.</p>
+					</section>
+					<section>
+						<h3>Conceptual example</h3>
+						<ol>
+							<li>Create a simple lecturer table (<code>firstname</code>, <code>lastname</code>)</li>
+							<li>Deploy multiple environments (development, staging, live)</li>
+							<li>Add a field <code>office</code>, and make sure it has been set on every environments, including your subcontractors development environment...</li>
+						</ol>
+					</section>
+					<section>
+						<h3>Solution: migrations</h3>
+						<ul>
+							<li><a href="http://docs.doctrine-project.org/projects/doctrine-migrations/en/latest/reference/generating_migrations.html#without-the-orm" target="_blank">Doctrine migrations</a> (more complex to setup)</li>
+							<li><a href="https://phinx.org/" target="_blank">Phinx</a></li>
+						</ul>
+					</section>
+					<section>
+						<h3>Example</h3>
+						<pre><code>php -r "readfile('https://getcomposer.org/installer');" | php</code></pre>
+						<pre><code>php composer.phar require robmorgan/phinx</code></pre>
+						<pre><code>php vendor/bin/phinx</code></pre>
+						<pre><code>mkdir migrations</code></pre>
+						<pre><code>php vendor/bin/phinx init</code></pre>
+					</section>
+					<section>
+						<h3>Example</h3>
+						<pre><code>php vendor/bin/phinx create AddLecturersTable</code></pre>
+						<p>Edit <code>db/migrations/20160211111348_add_lecturers_table.php</code>:</p>
+						<pre><code>&lt;?php
+
+use Phinx\Migration\AbstractMigration;
+
+class AddLecturersTable extends AbstractMigration
+{
+    public function change()
+    {
+        $table = $this->table('lecturer');
+        $table->addColumn('firstname', 'string', ['length' => 255])
+              ->addColumn('lastname', 'string', ['length' => 255])
+              ->create();
+    }
+}</code></pre>
+					</section>
+					<section>
+						<h3>Example</h3>
+						<p>Edit configuration (<code>phinx.yml</code>):</p>
+						<pre><code class="yml">paths:
+    migrations: %%PHINX_CONFIG_DIR%%/db/migrations
+    seeds: %%PHINX_CONFIG_DIR%%/db/seeds
+
+environments:
+    default_migration_table: phinxlog
+    default_database: production
+    production:
+        adapter: mysql
+        host: db4free.net
+        name: set08101
+        user: set08101
+        pass: set08101
+        port: 3306
+        charset: utf8</code></pre>
+					</section>
+					<section>
+						<h3>Example</h3>
+						<pre><code>php vendor/bin/phinx migrate</code></pre>
+						<a href="" target="_blank">View on PHPMyAdmin</a>
+					</section>
+					<section>
+						<h2>Questions?</h2>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Framework Interoperability Group</h2>
+						<h3>Standard recommandations</h3>
+					</section>
+					<section>
+						<h3>PSR0 and PSR4: autoloading</h3>
+						<p>Include only the autoloader file and remove the complex include and require dependencies.</p>
+					</section>
+					<section>
+						<h3>Example</h3>
+						<p><a href="https://github.com/tdutrion/set08101-2016/blob/gh-pages/lecture/05--PHP--create--a--simple--website/example/programmes.php#L2" target="_blank"><code>programmes.php</code></a> includes <code>src/Programme.php</code>.</p>
+						<p><a href="https://github.com/tdutrion/set08101-2016/blob/gh-pages/lecture/05--PHP--create--a--simple--website/example/src/Programme.php#L3" target="_blank"><code>src/Programme.php</code></a> includes <code>src/Lecturer.php</code>.</p>
+						<p>Including <code>Programme.php</code> in <code>Lecturer.php</code> raise an error (class already exist, declared in programmes.php).</p>
+					</section>
+					<section>
+						<h3>Example</h3>
+						<p>Move all the required include to <code>programmes.php</code></p>
+						<p>Use composer to autoload with PSR4.</p>
+					</section>
+					<section>
+						<h3>Example</h3>
+						<p>From lecture 05:</p>
+						<ul>
+							<li>programmes.php</li>
+							<li>src
+								<ul>
+									<li>Programme.php</li>
+									<li>Lecturer.php</li>
+								</ul>
+							</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Example</h3>
+						<pre><code>php -r "readfile('https://getcomposer.org/installer');" | php</code></pre>
+						<pre><code>php composer.phar init</code></pre>
+						<p>Edit your <code>composer.json</code> file:</p>
+						<pre><code>{
+    "name": "40007558/03",
+    "authors": [
+        {
+            "name": "Thomas Dutrion",
+            "email": "t.dutrion@napier.ac.uk"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {"Lib\\": "src/"}
+    }
+}</code></pre>
+						<pre><code>php composer.phar dump-autoload</code></pre>
+					</section>
+					<section>
+						<pre><code class="php">&lt;?php
+  include 'vendor/autoload.php';
+  use Lib\Lecturer;
+  use Lib\Programme;
+
+  $lecturers = [
+    new Lecturer('Cumming', 'Andrew', 'c49', '2753'),
+  ];
+
+  $programmes = [
+    new Programme('Programme 1', $lecturers[0]),
+    new Programme('Programme 2'),
+  ];
+?&gt;</code></pre>
+					</section>
+					<section>
+						<h2>Questions?</h2>
+					</section>
+					<section>
+						<h3>PSR0 and PSR2: Coding standard</h3>
+						<ul>
+							<li>The code is easier to read when specific formating rules apply.</li>
+							<li>Example: <code>TRUE</code>, <code>True</code> or <code>true</code>.</li>
+							<li>There are no best coding standard, pick one and work with it. PHP-FIG recommands PSR-0 and PSR-2.</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Coding standard tools</h3>
+						<ul>
+							<li><a href="https://github.com/squizlabs/PHP_CodeSniffer" target="_blank"><code>phpcs</code></a> (PHP Code Style) and <code>phpcbf</code> (auto format)</li>
+							<li><a href="http://cs.sensiolabs.org/" target="_blank"><code>php-cs-fixer</code></a> (check PSR-0, PSR-2 and Symfony coding standard)</li>
+						</ul>
+					</section>
+					<section>
+						<h3>php-cs-fixer</h3>
+						<pre><code>php composer.phar require fabpot/php-cs-fixer</code></pre>
+						<pre><code>php vendor/bin/php-cs-fixer fix --dry-run --diff src/</code></pre>
+						<pre><code>1) /home/40007558/public_html/example/04/src/Lecturer.php
+      ---------- begin diff ----------
+      --- Original
+      +++ New
+      @@ @@
+       <?php
+      +
+       namespace Lib;
+
+       class Lecturer
+       {
+      -  public $surname;
+      +    public $surname;
+
+      -  public $firstname;
+      +    public $firstname;
+
+      -  public $office;
+      +    public $office;
+
+      -  public $phone;
+      +    public $phone;
+
+      -  public function __construct($surname, $firstname, $office = null, $phone = null)
+      -  {
+      -    $this->surname = $surname;
+      -    $this->firstname = $firstname;
+      -    $this->office = $office;
+      -    $this->phone = $phone;
+      -  }
+      +    public function __construct($surname, $firstname, $office = null, $phone = null)
+      +    {
+      +        $this->surname = $surname;
+      +        $this->firstname = $firstname;
+      +        $this->office = $office;
+      +        $this->phone = $phone;
+      +    }
+       }
+
+
+      ---------- end diff ----------</code></pre>
+					</section>
+					<section>
+						<h2>Questions?</h2>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Employability week</h2>
+						<h3>An eye on the market</h3>
+					</section>
+					<section>
+						<h3>IT jobswatch stats</h3>
+					</section>
+					<section>
+						<img src="permanent-demand-trend.png">
+						<p>This chart provides the 3-month moving total of permanent IT jobs citing PHP within the UK as a proportion of the total demand within the Programming Languages category.</p>
+					</section>
+					<section>
+						<img src="salary-trend.png">
+						<p>This chart provides the 3-month moving average for salaries quoted in permanent IT jobs citing PHP within the UK.</p>
+					</section>
+					<section>
+						<img src="salary-histogram.png">
+						<p>This chart provides a salary histogram for IT jobs citing PHP over the 3 months to 11 February 2016 within the UK.</p>
+					</section>
+					<section>
+						<h3>Mid/senior PHP Developer offer</h3>
+						<div style="font-size: 0.5em;">
+							<p>PHP Developer, £40,000 Edinburgh Excellent Package</p>
+							<p>My client is offering an exciting opportunity for a PHP Developer to join their team.</p>
+							<p>Requirements:</p>
+							<p>Mid-level/ Senior PHP Developer:</p>
+							<ul>
+								<li>Strong PHP programming skills</li>
+								<li>Good experience with MySQL database including using MySQL tools to investigate and optimize existing queries.</li>
+								<li>Experience with at least one of major PHP frameworks like Laravel</li>
+								<li>Experience with version control systems (GIT)</li>
+								<li>Good experience with JavaScript including using jQuery library, jQuerry plugins and JavaScript frameworks</li>
+								<li>Good HTML and CSS skills</li>
+							</ul>
+							<p>Are you a outstanding Junior Level PHP Developer? If so also get in contact there is a junior position that is also open.</p>
+						</div>
+					</section>
+				</section>
+				<section>
+					<h2>Further reading</h2>
+					<ul>
+						<li>
+							<a href="https://www.atlassian.com/git/tutorials/" target="_blank">
+								Atlassian GIT tutorials
+							</a>
+						</li>
+						<li>
+							<a href="http://www.php-fig.org/" target="_blank">
+								PHP Framework Interoperability Group recommandations
+							</a>
+						</li>
+					</ul>
+				</section>
+			</div>
+		</div>
+		<style>
+			.reveal table th, .reveal table td {
+				font-size: 0.6em;
+			}
+			.splitted {
+				width: 100%;
+			}
+			.splitted > div {
+				width: 50%;
+				float: left;
+			}
+			.splitted > div blockquote {
+				font-size: 0.8em;
+			}
+			.reveal table img {
+				width: 100%;
+				border: none;
+				-webkit-box-shadow: none;
+				-moz-box-shadow: none;
+				box-shadow: none;
+			}
+		</style>
+		<script src="../../lib/js/head.min.js"></script>
+		<script src="../../js/reveal.js"></script>
+		<script>
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				slideNumber: true,
+				slideNumber: 'c / t',
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+				dependencies: [
+					{ src: '../../lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: '../../plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../../plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../../plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: '../../plugin/zoom-js/zoom.js', async: true },
+					{ src: '../../plugin/notes/notes.js', async: true }
+				]
+			});
+		</script>
+      <a href="https://github.com/tdutrion/set08101-2016"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/567c3a48d796e2fc06ea80409cc9dd82bf714434/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png"></a>
+	</body>
+</html>
