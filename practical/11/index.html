@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>SET08101 - 2016 - Practical 11</title>
+    <link href='../../style.css' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <img id="logo" src="../../ENU-logo.png" alt="Edinburgh Napier University logo">
+    <h1>SET08101 - 2016 - Practical 11</h1>
+    <p>The purpose of this practical is to create a simple website fetching data from a database as described in the lecture.</p>
+    <h2>Connect to socwebtech1 using SSH</h2>
+    <p>Modern PHP tools and framework require the use of the command line interface. While PHP-CLI is not installed on the university Windows machines, it is available on socwebtech1.</p>
+    <p>To use PHP-CLI, you have to connect using SSH. On the university computers, you can use Putty to make an SSH connection. On <code>ZENworks</code>, browse to <code>Faculty of Engineering, Computing and Creative Industries</code>, then <code>School of Computing</code> and find <code>SSH_Putty_Only_(VDS)</code>.</p>
+    <p><img src="01-putty-interface.png" alt="Putty interface"></p>
+    <p>Use <code>socwebtech1.napier.ac.uk</code> as hostname and click <code>Open</code>. Then, use your university credentials to connect.</p>
+    <p><img src="02-putty-connection.png" alt="Connect to SSH using Putty"></p>
+    <p>Because socwebtech1 is a Linux based server, when typing your password you will not see anything on screen. That is a security feature with the rationale that anybody walking behind you should not know how many characters your password is made of.</p>
+    <p>You can now use PHP-CLI on the university server. The first simple command you will use is <code>php -v</code> to have a look at the version of PHP you are using.</p>
+    <p><img src="03-php-version.png" alt="Result of the php -v command"></p>
+    <p>You can continue to create and manage your files and folders using WinSCP in the same time, or use the command line interface for everything, in which case you may need to use <code>mkdir</code>, <code>cd</code> and either <code>nano</code> or <code>vim</code>. Please use WinSCP if you do not know Linux well already.</p>
+    <h2>Create a simple website</h2>
+    <p>Create a folder for this tutorial, and browse to it using SSH (for instance, if the folder is called <code>tutorial</code> and is located in <code>public_html</code>, use <code>cd public_html/tutorial</code>).</p>
+    <p>Create a file named <code>index.php</code>, and add the following HTML content.</p>
+    <pre><code class="html">&lt;!doctype html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta charset="utf-8"&gt;
+        &lt;title&gt;Lecturers list&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;h1&gt;Lecturers list&lt;/h1&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    <p>You PHP code to retrieve the data from the database should be set before this HTML block, and some modifications to the HTML must be made to display the information.</p>
+    <p>Start by adding an array with the lecturer details and a class to contain lecturers details.</p>
+    <pre><code>&lt;?php
+    class Lecturer
+    {
+        public $firstname;
+        public $lastname;
+
+        public function __construct($firstname, $lastname)
+        {
+            $this->firstname = $firstname;
+            $this->lastname = $lastname;
+        }
+    }
+    $lecturers = [
+        new Lecturer('test1', 'test1'),
+        new Lecturer('test2', 'test2'),
+    ];
+?&gt;</code></pre>
+    <p>Now, add a table using a <code>foreach</code> on your recently created collection. You are expecting two rows to be displayed.</p>
+    <pre><code>&lt;table&gt;
+    &lt;?php foreach ($lecturers as $lecturer): ?&gt;
+        &lt;tr&gt;
+            &lt;td&gt;
+                &lt;?php echo $lecturer->firstname; ?&gt;
+            &lt;/td&gt;
+            &lt;td&gt;
+                &lt;?php echo $lecturer->lastname; ?&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;?php endforeach; ?&gt;
+&lt;table&gt;</code></pre>
+    <p>You can now move the <code>Lecturer</code> class to another folder (<code>src</code>), and name the file <code>Lecturer.php</code> (as in the PSR4 standard), and use either an include or a PSR4 autoloading with composer as seen during the lecture.</p>
+    <h2>Retrieve from database</h2>
+    <p>You can access the database (read only) with the following credentials:</p>
+    <ul>
+      <li>host: localhost</li>
+      <li>username: scott</li>
+      <li>password: tiger</li>
+      <li>dbname: 40007558</li>
+    </ul>
+    <p>Replace your lecturer array with the code to retrieve data from database:</p>
+    <pre><code>&lt;?php
+    $mysqli = new mysqli('localhost', 'scott', 'tiger', '40007558');
+    if ($mysqli->connect_errno) {
+        header("HTTP/1.1 500 Internal Server Error");
+        die("Failed to connect to MySQL: {$mysqli->connect_error}");
+    }
+
+    $res = $mysqli->query(
+        "SELECT id, firstname, lastname, office, phone FROM lecturer"
+    );
+    $lecturers = [];
+    while($row = $res->fetch_assoc()) {
+        $lecturers[] = new Lecturer(
+            $row['firstname'],
+            $row['lastname']
+        );
+    }
+?&gt;</code></pre>
+    <p>Have a look at the code from lecture 09 (databases) and try other database access methods (PDO and ORM).</p>
+    <a href="https://github.com/tdutrion/soc09108-2015"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/567c3a48d796e2fc06ea80409cc9dd82bf714434/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png"></a>
+  </body>
+</html>
