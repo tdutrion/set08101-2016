@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>SET08101 - Web Technologies - Lecture 13</title>
+
+		<meta name="description" content="PHP: Content Management Systems">
+		<meta name="author" content="Thomas Dutrion">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="../../css/reveal.css">
+		<link rel="stylesheet" href="../../css/theme/napier.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="../../lib/css/github.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? '../../css/print/pdf.css' : '../../css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h4>SET08101</h4>
+					<h1>Web Technologies</h1>
+					<h3>Content Management System</h3>
+				</section>
+				<section>
+					<section>
+						<h2>Last weeks</h2>
+						<ul>
+							<li>Create a simple website</li>
+							<li>Use user input</li>
+							<li>Fetch dynamic data from databases</li>
+							<li>Manage databases schemas</li>
+							<li>Organise your code</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Focus on your content</h2>
+						<ul>
+							<li>What is a CMS</li>
+							<li>How to use a CMS</li>
+							<li>Manage content for a mobile application</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Mental Wellbeing Week</h2>
+						<ul>
+							<li><a href="http://my.napier.ac.uk/Wellbeing-and-Support/Mental-Wellbeing/Pages/Mental-Wellbeing-Week.aspx" target="_blank">Mental Wellbeing Week information</a></li>
+							<li><a href="http://osmihelp.org/" target="_blank">Open Sourcing Mental Illness</a></li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Content Management System</h2>
+					</section>
+					<section>
+						<h3>What is a website?</h3>
+						<ul>
+							<li class="fragment">Content</li>
+							<li class="fragment">Style</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Basic Operations</h3>
+						<ul>
+							<li class="fragment">Create</li>
+							<li class="fragment">Read</li>
+							<li class="fragment">Update</li>
+							<li class="fragment">Delete</li>
+						</ul>
+					</section>
+					<section>
+						<h3 class="fragment">Can you code it yourself?</h3>
+						<h3 class="fragment">Why would you code it yourself?</h3>
+					</section>
+					<section>
+						<h3>Reasons to use a CMS</h3>
+						<ul>
+							<li>Reduce development time</li>
+							<li>Reduce development costs</li>
+							<li>Benefit from security / feature updates</li>
+							<li>Use a common project (easy to join for developers)</li>
+							<li>Provide an easy to use administration interface for non-technical users</li>
+						</ul>
+					</section>
+					<section>
+						<h3>A few names</h3>
+						<table>
+							<tbody>
+								<tr>
+									<td>
+										<img src="wordpress.png" alt="Wordpress logo">
+									</td>
+									<td>
+										<img src="drupal.png" alt="Drupal logo">
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<img src="ee-banner.png" alt="Expression Engine logo">
+									</td>
+									<td>
+										<img src="joomla.png" alt="Joomla logo">
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</section>
+					<section>
+						<h3>Market shares (1/2)</h3>
+						<img src="cms-market-shares.png" alt="CMSs market shares 2014-2015">
+						<p>CMS market shares, retrieved from <a href="http://w3techs.com/technologies/history_overview/content_management" target="_blank">W3Tech</a></p>
+					</section>
+					<section>
+						<h2>Market shares 2/2</h2>
+						<h3>Stay critical!</h3>
+						<p class="fragment" data-fragment-index="0">Who created the statistics?</p>
+						<p class="fragment" data-fragment-index="1">What are they based on?</p>
+						<p class="fragment" data-fragment-index="2">Does that include data on CMS used behind companies firewalls? (spoiler: no)</p>
+					</section>
+					<section>
+						<h3>How to choose?</h3>
+						<ul>
+							<li>Mainly a personal opinion / preference</li>
+							<li>Legal constraints (licence, support)</li>
+							<li>Community, never get stuck</li>
+							<li>The more users, the more the project can fix bugs quickly</li>
+							<li>"One fits all" problem</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Questions?</h2>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Modern CMS</h2>
+					</section>
+					<section>
+						<h2>What is a modern CMS?</h2>
+						<p>A CMS that:</p>
+						<ul>
+							<li>generates static files?</li>
+							<li>allows content to be consumed by any device? (decoupled)</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Static generators</h2>
+						<h3>Advantages</h3>
+						<p>Users type contents in files or in WYSIWYG editor, and files get generated on save.</p>
+						<ul>
+							<li>No more caching problems</li>
+							<li>Dynamic content (related articles) provided by ajax</li>
+							<li>Load faster (no HTML generation on GET requests)</li>
+						</ul>
+						<p>Example: <a href="http://bolt80.com/piecrust/" target="_blank">PieCrust</a>.</p>
+					</section>
+					<section>
+						<h2>Static generators</h2>
+						<h3>Drawbacks</h3>
+						<ul>
+							<li>Generally generating one single type of content (HTML)</li>
+							<li>New tools (your end users do not know them)</li>
+							<li>Require complex migrations from existing projects</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Headless CMS</h2>
+						<h3>Advantages</h3>
+						<p>Use the administration interface you are used to.</p>
+						<p>Expose the content as a WebAPI.</p>
+						<p>Create your own client (HTML/Javascript - Mobile application - ...)</p>
+					</section>
+					<section>
+						<h2>Headless CMS</h2>
+						<h3>Drawbacks</h3>
+						<img src="headless-cms.png" alt="Headless web illustration">
+						<p><a href="https://pantheon.io/blog/headless-websites-whats-big-deal" target="_blank">Pantheon: Headless Websites: What's the Big Deal?</a></p>
+					</section>
+					<section>
+						<h2>Clients for headless web</h2>
+						<ul>
+							<li>Web page (AngularJS, MeteorJS, AmberJS, BackboneJS...)</li>
+							<li>Mobile application (Cordova, native iOS / Android / Windows Phone)</li>
+							<li>Desktop application (native OSX / Windows / Linux, <a href="http://electron.atom.io/" target="_blank">Electron</a>)</li>
+							<li>Partners (services querying your content)</li>
+							<li>Other tools in your organisation</li>
+							<li>...</li>
+						</ul>
+						<p></p>
+					</section>
+					<section>
+						<h2>Market state</h2>
+						<ul>
+							<li>Drupal 8 (Headless)
+							<li>WordPress REST API in core</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Questions?</h2>
+					</section>
+				</section>
+				<section>
+					<h2>Further reading</h2>
+					<ul>
+						<li>
+							<a href="http://osmihelp.org/" target="_blank">
+								Open Sourcing Mental Illness
+							</a>
+						</li>
+						<li>
+							<a href="https://www.youtube.com/watch?v=onktCMKQkfI" target="_blank">
+								PHPNW15 Closing Keynote: Stefan Koopmanschap: Developers are just like humans
+							</a>
+						</li>
+						<li>
+							<a href="https://speakerdeck.com/briward/using-vuejs-in-front-of-drupal-8" target="_blank">
+								Using VueJS in front of Drupal 8
+							</a>
+						</li>
+            <li>
+            	<a href="https://econsultancy.com/blog/67153-is-it-time-to-trade-your-cms-for-a-static-website-generator/" target="_blank">
+              	Is it time to trade your cms for a static website generator
+            	</a>
+            </li>
+					</ul>
+				</section>
+			</div>
+		</div>
+		<style>
+			.reveal table th, .reveal table td {
+				font-size: 0.6em;
+			}
+			.splitted {
+				width: 100%;
+			}
+			.splitted > div {
+				width: 50%;
+				float: left;
+			}
+			.splitted > div blockquote {
+				font-size: 0.8em;
+			}
+			.reveal table img {
+				width: 100%;
+				border: none;
+				-webkit-box-shadow: none;
+				-moz-box-shadow: none;
+				box-shadow: none;
+			}
+		</style>
+		<script src="../../lib/js/head.min.js"></script>
+		<script src="../../js/reveal.js"></script>
+		<script>
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				slideNumber: true,
+				slideNumber: 'c / t',
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+				dependencies: [
+					{ src: '../../lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: '../../plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../../plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../../plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: '../../plugin/zoom-js/zoom.js', async: true },
+					{ src: '../../plugin/notes/notes.js', async: true }
+				]
+			});
+		</script>
+      <a href="https://github.com/tdutrion/set08101-2016"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/567c3a48d796e2fc06ea80409cc9dd82bf714434/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png"></a>
+	</body>
+</html>
