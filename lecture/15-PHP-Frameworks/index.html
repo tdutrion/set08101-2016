@@ -1,0 +1,585 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>SET08101 - Web Technologies - Lecture 15</title>
+
+		<meta name="description" content="PHP: Frameworks">
+		<meta name="author" content="Thomas Dutrion">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="../../css/reveal.css">
+		<link rel="stylesheet" href="../../css/theme/napier.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="../../lib/css/github.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? '../../css/print/pdf.css' : '../../css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h4>SET08101</h4>
+					<h1>Web Technologies</h1>
+					<h3>PHP Frameworks</h3>
+				</section>
+				<section>
+					<section>
+						<h2>Last weeks</h2>
+						<ul>
+							<li>Create a simple website</li>
+							<li>Use user input</li>
+							<li>Fetch dynamic data from databases</li>
+							<li>Manage databases schemas</li>
+							<li>Organise your code</li>
+							<li>Content Management Systems</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Frameworks</h2>
+						<ul>
+							<li>What is a framework</li>
+							<li>Basic concepts</li>
+							<li>How to use framework</li>
+							<li>Rapid Application Development</li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Frameworks</h2>
+					</section>
+					<section>
+						<blockquote>PHP framework is a library that makes the life of site developer easier by for example hiding some complexities of HTTP protocol or by adding some useful functions. For example the CakePHP implements so called MVC which makes developer to think a level higher than HTTP.</blockquote>
+						<p>19 Nov 2008, <a href="http://stackoverflow.com/questions/301240/whats-a-php-framework-and-whats-a-good-one" target="_blank">Stackoverflow: what's a php framework and what's a good one</a></p>
+					</section>
+					<section>
+						<h3>Full stack framework</h3>
+						<ul>
+							<li>Recommends a specific directory architecture</li>
+							<li>Provides lots of components</li>
+							<li>Helps from receiving the request to dispatching the response</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Microframeworks</h3>
+						<ul>
+							<li>Only includes a minimal application kernel</li>
+							<li>Developers to add the components</li>
+							<li>Does not provide a folder structure</li>
+							<li>Does not provide the glue between components</li>
+						</ul>
+					</section>
+					<section>
+						<h3>A few names</h3>
+						<table>
+							<thead>
+								<tr>
+									<th>Full stack framework</th>
+									<th>Microframework</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><a href="https://laravel.com/" target="_blank">Laravel</a></td>
+									<td><a href="https://lumen.laravel.com/" target="_blank">Lumen</a></td>
+								</tr>
+								<tr>
+									<td><a href="http://symfony.com/" target="_blank">Symfony (2 & 3)</a></td>
+									<td><a href="http://silex.sensiolabs.org/" target="_blank">Silex</a></td>
+								</tr>
+								<tr>
+									<td><a href="http://framework.zend.com/" target="_blank">Zend Framework (2 & 3)</a></td>
+									<td><a href="https://zendframework.github.io/zend-expressive/">Zend Expressive</a></td>
+								</tr>
+								<tr>
+									<td><a href="https://phalconphp.com/en/" target="_blank">Phalcon</a></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td><a href="http://www.slimframework.com/">Slim</a></td>
+								</tr>
+								<tr>
+									<td>...</td>
+									<td>...</td>
+								</tr>
+							</tbody>
+						</table>
+						<p>A lot more are available on the market, but that would be the main ones currently.</p>
+					</section>
+					<section>
+						<h3>What is a framework</h3>
+						<p>A framework is a number of classes and functions provided as a set of files (or a PHP extension for Phalcon).</p>
+						<hr>
+						<pre><code class="bash">composer require zendframework/zendframework</code></pre>
+						<pre><code class="bash">find . -type f | wc -l
+4369</code></pre>
+						<hr>
+<pre><code class="bash">composer require slim/slim</code></pre>
+<pre><code class="bash">find . -type f | wc -l
+156</code></pre>
+					</section>
+					<section>
+						<h3>How to choose?</h3>
+						<ul>
+							<li>Mainly a personal opinion / preference</li>
+							<li>Legal constraints (licence, support)</li>
+							<li>Community, never get stuck</li>
+							<li>The more users, the more the project can fix bugs quickly</li>
+							<li>The one you know is the best</li>
+						</ul>
+					</section>
+					<section>
+						<h3>How to get started?</h3>
+						<p class="fragment">Frameworks provide skeletons to get started in no time</p>
+						<p class="fragment">You need to know some basics before</p>
+					</section>
+					<section>
+						<h2>Questions?</h3>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Basic concepts</h2>
+						<ul>
+							<li class="fragment">Front controller</li>
+							<li class="fragment">Url rewriting</li>
+							<li class="fragment">MVC</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Front controller</h2>
+						<p>Every request goes through the same file.</p>
+						<p>Helps with setting up the environment, bootstrap, and share common code.</p>
+						<p><a href="http://www.sitepoint.com/front-controller-pattern-1/" target="_blank">Sitepoint: front controller pattern</a></p>
+					</section>
+					<section>
+						<h2>Front controller</h2>
+						<h3>Basic example</h3>
+						<p><code>staff.php</code></p>
+						<pre><code class="html php">&lt;?php
+  require 'src/Lecturer.php';
+
+  $lecturers = [
+    new Lecturer('Cumming', 'Andrew', 'c49', '2753'),
+    new Lecturer('Dutrion', 'Thomas'),
+  ];
+?&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;title&gt;SET08101 - Lecture 15 - staff.php&lt;/title&gt;
+    &lt;link href=&quot;style.css&quot; rel=&quot;stylesheet&quot;&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Edinburgh Napier University&lt;/h1&gt;
+    &lt;table&gt;
+      &lt;tr&gt;
+        &lt;th&gt;Surname&lt;/th&gt;
+        &lt;th&gt;First name&lt;/th&gt;
+        &lt;th&gt;Office&lt;/th&gt;
+        &lt;th&gt;Phone&lt;/th&gt;
+      &lt;/tr&gt;
+      &lt;?php foreach ($lecturers as $key =&gt; $lecturer): ?&gt;
+      &lt;tr&gt;
+        &lt;td&gt;
+            &lt;a href=&quot;index.php?page=staff-detail&lecturer=&lt;?php echo $key; ?&gt;&quot;&gt;
+                &lt;?php echo $lecturer-&gt;surname; ?&gt;
+            &lt;/a&gt;
+        &lt;/td&gt;
+        &lt;td&gt;&lt;?php echo $lecturer-&gt;firstname; ?&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;?php echo $lecturer-&gt;office; ?&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;?php echo $lecturer-&gt;phone; ?&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;?php endforeach; ?&gt;
+    &lt;/table&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+					</section>
+					<section>
+						<h2>Front controller</h2>
+						<h3>Basic example</h3>
+						<p><code>staff-detail.php</code></p>
+						<pre><code class="html php">&lt;?php
+  require 'src/Lecturer.php';
+
+  $lecturers = [
+    new Lecturer('Cumming', 'Andrew', 'c49', '2753'),
+    new Lecturer('Dutrion', 'Thomas'),
+  ];
+
+  $lecturerId = (int)filter_input(INPUT_GET, 'lecturer', FILTER_SANITIZE_NUMBER_INT);
+  if (!isset($lecturers[$lecturerId])) {
+    throw new Exception('Unable to find the specified lecturer');
+  }
+  $lecturer = $lecturers[$lecturerId];
+?&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;title&gt;SET08101 - Lecture 15 - staff-detail.php&lt;/title&gt;
+    &lt;link href=&quot;style.css&quot; rel=&quot;stylesheet&quot;&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;&lt;?php echo &quot;{$lecturer-&gt;firstname} {$lecturer-&gt;surname}&quot;; ?&gt;&lt;/h1&gt;
+    &lt;table&gt;
+      &lt;tr&gt;
+        &lt;th&gt;Office&lt;/th&gt;
+        &lt;th&gt;Phone&lt;/th&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;&lt;?php echo $lecturer-&gt;office; ?&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;?php echo $lecturer-&gt;phone; ?&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/table&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+					</section>
+					<section>
+						<h2>Front controller</h2>
+						<h3>Basic example</h3>
+						<p>The following code exists in both files:</p>
+						<pre><code class="html php">&lt;?php
+  require 'src/Lecturer.php';
+
+  $lecturers = [
+    new Lecturer('Cumming', 'Andrew', 'c49', '2753'),
+    new Lecturer('Dutrion', 'Thomas'),
+  ];</code></pre>
+					</section>
+					<section>
+						<h2>Front controller</h2>
+						<h3>Basic example</h3>
+						<p>Create an entry point (<code>index.php</code>):</p>
+						<pre><code class="php">&lt;?php
+  require 'src/Lecturer.php';
+
+  $lecturers = [
+    new Lecturer('Cumming', 'Andrew', 'c49', '2753'),
+    new Lecturer('Dutrion', 'Thomas'),
+  ];
+
+  switch ($_GET['page']) {
+    case 'staff':
+      include 'staff.php';
+      break;
+    case 'staff-detail':
+      include 'staff-detail.php';
+      break;
+    default:
+      header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found");
+      die ('page not found');
+  }</code></pre>
+						<p>Don't forget to remove the duplicate code in other files.</p>
+					</section>
+					<section>
+						<h2>Front controller</h2>
+						<h3>Basic example</h3>
+						<p>Urls:</p>
+						<ul>
+							<li><a href="https://socwebtech1.napier.ac.uk/~40007558/material/lecture/15-PHP-Frameworks/example/index.php?page=staff" target="_blank">index.php?page=staff</a></li>
+							<li><a href="https://socwebtech1.napier.ac.uk/~40007558/material/lecture/15-PHP-Frameworks/example/index.php?page=staff-detail" target="_blank">index.php?page=staff-detail</a></li>
+						</ul>
+						<p>Not very user friendly (or search engine optimised).</p>
+					</section>
+					<section>
+						<h2>Disclaimer</h2>
+						<p>That is an awfully simplified version of a front controller, please read sitepoint article where it is done the right way.</p>
+					</section>
+					<section>
+						<h2>Questions?</h2>
+					</section>
+					<section>
+						<h2>URL rewriting</h2>
+						<p>Rewrite the query string from an url.</p>
+						<table>
+							<tr>
+								<td>site.com/index.php?page=staff</td>
+								<td>site.com/staff</td>
+							</tr>
+							<tr>
+								<td>site.com/index.php?page=staff-detail&lecturer=0</td>
+								<td>site.com/staff-detail/0</td>
+							</tr>
+						</table>
+					</section>
+					<section>
+						<h2>Apache 2 - Url rewriting</h2>
+						<pre><code class="bash">
+              RewriteEngine On
+
+              RewriteCond %{REQUEST_URI}::$1 ^(/.+)(.+)::\2$
+              RewriteRule ^(.*) - [E=BASE:%1]
+              RewriteRule ^staff$ %{ENV:BASE}index.php?page=staff [L]
+              RewriteRule ^staff/([^-]*)$ %{ENV:BASE}index.php?page=staff-detail&lecturer=$1 [L]
+
+              # The following rule tells Apache that if the requested filename
+              # exists, simply serve it.
+              RewriteCond %{REQUEST_FILENAME} -s [OR]
+              RewriteCond %{REQUEST_FILENAME} -l [OR]
+              RewriteCond %{REQUEST_FILENAME} -d
+              RewriteRule ^.*$ - [NC,L]
+
+              # The following rewrites all other queries to index.php.
+              RewriteCond %{REQUEST_URI}::$1 ^(/.+)(.+)::\2$
+              RewriteRule ^(.*) - [E=BASE:%1]
+              RewriteRule ^(.*)$ %{ENV:BASE}index.php [NC,L]
+						</code></pre>
+					</section>
+					<section>
+						<p>Frameworks usually redirect all requests to <code>index.php</code> when the request is not targeting an actual file or directory.</p>
+						<ul>
+							<li><a href="https://github.com/zendframework/ZendSkeletonApplication/blob/master/public/.htaccess" target="_blank">Zend Framework skeleton</a> (my favorite)</li>
+							<li><a href="https://github.com/symfony/symfony-standard/blob/master/web/.htaccess" target="_blank">Symfony standard distribution</a></li>
+							<li><a href="https://github.com/laravel/laravel/blob/master/public/.htaccess" target="_blank">Laravel</a></li>
+						</ul>
+					</section>
+					<section>
+						<h2>Questions?</h2>
+					</section>
+					<section>
+						<h2>MVC</h2>
+						<h3>Model View Controller</h3>
+						<ul>
+							<li><a href="http://en.wikipedia.org/wiki/Separation_of_concerns" target="_blank">Separation of Concerns</a></li>
+							<li><a href="http://en.wikipedia.org/wiki/Don%27t_repeat_yourself" target="_blank">Don't Repeat Yourself (DRY)</a></li>
+						</ul>
+					</section>
+					<section>
+						<h2>MVC</h2>
+						<h3>Model</h3>
+						<p>Contains the data and the rules applied to the data.</p>
+						<p>Example: a lecturer class, a module class.</p>
+						<p>Example: can a lecturer be older than 70 years old? (exception in the setter)</p>
+					</section>
+					<section>
+						<h2>MVC</h2>
+						<h3>View</h3>
+						<p>Contains any display information, present the data from the model layer. That is the templating/rendering layer.</p>
+						<p>Example: the html table of lecturer, with the PHP code used for templating</p>
+					</section>
+					<section>
+						<h2>MVC</h2>
+						<h3>Controller</h3>
+						<p>The controller is in charge of recieving the request, processing it and send a result back.</p>
+						<p>It fetches data from the model layer (using parameters from the request), and pass them to the view layer to be displayed.</p>
+						<p>The controller only responsibility is to coordinate the other components.</p>
+					</section>
+					<section>
+						<img src="mvc.jpg" alt="MVC diagram">
+					</section>
+					<section>
+						<blockquote>
+							The most obvious advantage we gain using MVC is a clear separation of presentation (the interface with the user) and application logic.
+						</blockquote>
+					</section>
+					<section>
+						<p>Most modern frameworks provide an MVC structure so you only have to fill the content of the 3 parts, and not handle the routing, inclusion, dispatch loop and so on by yourself.</p>
+					</section>
+					<section>
+						<h2>Questions?</h2>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Demonstration</h2>
+						<h3>Laravel 5</h3>
+						<p>Build an application that list Scottish PHP User Groups</p>
+					</section>
+					<section>
+						<h2>Installation</h2>
+						<p>Installing in a folder named 01:</p>
+						<pre><code class="bash">composer create-project --prefer-dist laravel/laravel 01</code></pre><!-- install laravel -->
+						<a href="https://socwebtech1.napier.ac.uk/~40007558/demo/laravel/01/public" target="_blank">Fresh Laravel 5 installation</a>
+					</section>
+					<section>
+						<h2>Configuration</h2>
+						<h4>Directory Permissions</h4>
+						<pre><code>chmod u+rw storage; chmod u+rw bootstrap/cache</code></pre>
+						<h4>Application Key</h4>
+						<p>Generate a random string to secure your user sessions (sessions are encrypted using this key).</p>
+						<pre><code>php artisan key:generate</code></pre>
+						<h4>Additional configuration</h4>
+						<p>Edit <code>config/app.php</code>, <code>config/database.php</code> and <code>.env</code>.</p>
+					</section>
+					<section>
+						<h2>Writing your model</h2>
+						<p>Creating a data structure that uses the previously defined configuration to persist.</p>
+						<h4>Create a database migration</h4>
+						<pre><code>php artisan make:migration create_ug_table --create=groups</code></pre>
+						<pre><code>ls database/migrations</code></pre>
+						<p>Edit <code>database/migrations/2016_02_25_230516_create_ug_table.php</code>:</p>
+						<pre><code>vim database/migrations/2016_02_25_230516_create_ug_table.php</code></pre>
+						<p>Add your own column:</p>
+						<pre><code class="php">$table->string('name');</code></pre>
+						<p>Run the migration:</p>
+						<pre><code>php artisan migrate</code></pre>
+					</section>
+					<section>
+						<h2>Writing your model</h2>
+						<p>Laravel can generate the model for you based on your database.</p>
+						<pre><code>php artisan make:model Group</code></pre>
+						<p>Note that the model is named <code>Group</code> for the table <code>groups</code> (capital and singular for the model, lowercase and plural for table name). That is a convention in Eloquent (Laravel's ORM).</p>
+						<p>The model is available in the file <code>app/Group.php</code>.</p>
+					</section>
+					<section>
+						<h2>Adding a route</h2>
+						<p>A route is a way for the framework to dispatch the request to a specific action (function) based on the address provided.</p>
+						<p>Edit <code>app/Http/routes.php</code> to add the route:</p>
+						<pre><code class="php">
+/**
+ * Show Groups Dashboard
+ */
+Route::get('/', function () {
+    return view('groups');
+});
+						</code></pre>
+						<p>For now, the action only returns a view, mapping to the file <code>resources/views/groups.blade.php</code>.</p>
+					</section>
+					<section>
+						<h2>Writing your view</h2>
+						<p>Writing the template you want to display.</p>
+						<p>Create and edit <code>resources/views/groups.blade.php</code></p>
+						<pre><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;title&gt;Example&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;table&gt;
+      &lt;thead&gt;
+        &lt;tr&gt;
+          &lt;th&gt;Group name&lt;/th&gt;
+        &lt;/tr&gt;
+      &lt;/thead&gt;
+      &lt;tbody&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+					</section>
+					<section>
+						<h2>Writing your controller</h2>
+						<p>Fetching the data from the model and passing it to the view.</p>
+						<p>Edit your routes file <code>app/Http/routes.php</code></p>
+						<pre><code class="php">Route::get('/', function (App\Group $groupModel) {
+  $groups = $groupModel->get();
+
+  return view('groups', [
+    'groups' => $groups
+  ]);
+});</code></pre>
+					</section>
+					<section>
+						<h2>Edit the view</h2>
+						<p>Laravel uses Blade as templating engine instead of PHP, therefore if and foreach have a different syntax.</p>
+						<p>Edit <code>resources/views/groups.blade.php</code>:</p>
+						<pre><code class="html">@foreach ($groups as $group)
+  &lt;tr&gt;
+    &lt;td&gt;{{ $group->name }}&lt;/td&gt;
+  &lt;/tr&gt;
+@endforeach</code></pre>
+						<p>Add a few data in the database to see the changes.</p>
+					</section>
+					<section>
+						<h2>Questions?</h2>
+					</section>
+				</section>
+				<section>
+					<h2>Further reading</h2>
+					<ul>
+						<li>
+							<a href="https://laravel.com/docs/5.2/quickstart" target="_blank">
+								Laravel quickstart documentation
+							</a>
+						</li>
+						<li>
+							<a href="https://laracasts.com/series/laravel-5-fundamentals" target="_blank">
+								Laravel 5 fundamentals on Laracast, the best way to get started with Laravel
+							</a>
+						</li>
+						<li>
+							<a href="https://nomadphp.com/2014/08/25/introduction-slim-frameword/" target="_blank">
+								Nomad PHP: Introduction to slim framework
+							</a>
+						</li>
+						<li>
+            	<a href="http://2015.phpday.it/talk/pushing-boundaries-zend-framework-3-and-the-future/" target="_blank">
+              	PHP Days 2015: Zend Framework 3 and the future of PHP
+            	</a>
+            </li>
+					</ul>
+				</section>
+			</div>
+		</div>
+		<style>
+			.reveal table th, .reveal table td {
+				font-size: 0.6em;
+			}
+			.splitted {
+				width: 100%;
+			}
+			.splitted > div {
+				width: 50%;
+				float: left;
+			}
+			.splitted > div blockquote {
+				font-size: 0.8em;
+			}
+			.reveal table img {
+				width: 100%;
+				border: none;
+				-webkit-box-shadow: none;
+				-moz-box-shadow: none;
+				box-shadow: none;
+			}
+		</style>
+		<script src="../../lib/js/head.min.js"></script>
+		<script src="../../js/reveal.js"></script>
+		<script>
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				slideNumber: true,
+				slideNumber: 'c / t',
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+				dependencies: [
+					{ src: '../../lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: '../../plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../../plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../../plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: '../../plugin/zoom-js/zoom.js', async: true },
+					{ src: '../../plugin/notes/notes.js', async: true }
+				]
+			});
+		</script>
+      <a href="https://github.com/tdutrion/set08101-2016"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/567c3a48d796e2fc06ea80409cc9dd82bf714434/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png"></a>
+	</body>
+</html>
