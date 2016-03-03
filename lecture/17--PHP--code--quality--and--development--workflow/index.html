@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>SET08101 - Web Technologies - Lecture 17</title>
+
+		<meta name="description" content="PHP: Code quality, development workflow and commercial issues">
+		<meta name="author" content="Thomas Dutrion">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="../../css/reveal.css">
+		<link rel="stylesheet" href="../../css/theme/napier.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="../../lib/css/github.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? '../../css/print/pdf.css' : '../../css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h4>SET08101</h4>
+					<h1>Web Technologies</h1>
+					<h4>Code Quality</h4>
+					<h4>Development workflow</h4>
+				</section>
+				<section>
+					<section>
+						<h2>Code quality</h2>
+					</section>
+					<section>
+						<blockquote>
+							<ul>
+								<li>Quality consists of those product features which meet the need of customers and thereby provide product satisfaction.</li>
+								<li>Quality consists of freedom from deficiencies.</li>
+						</blockquote>
+						<p>J.M Juran, <a href="" target="_blank">Juran’s Quality Control Handbook</a></p>
+					</section>
+					<section>
+						<h3>Features</h3>
+						<p>Does it work as expected?</p>
+						<h4>Acceptance testing</h4>
+						<ul>
+							<li><a href="http://codeception.com/" target="_blank">Codeception</a> (PHP)</li>
+							<li><a href="http://docs.behat.org/en/v3.0/" target="_blank">Behat</a> (PHP + <a href="https://cucumber.io/">Cucumber</a>)</li>
+							<li><a href="https://github.com/cucumber/cucumber-js" target="_blank">Cucumber JS</a></li>
+						</ul>
+					</section>
+					<section>
+						<h3>Free of Deficiencies</h3>
+						<ul>
+							<li>Unit testing</li>
+							<li>Integration testing</li>
+							<li>Mutation testing</li>
+							<li>...</li>
+						</ul>
+						<img src="integration.gif" alt="Example of bad design">
+					</section>
+					<section>
+						<h3>Coding principles</h3>
+						<ul>
+							<li><strong><a href="https://en.wikipedia.org/wiki/KISS_principle" target="_blank">DRY</a></strong> (<strong>D</strong>on't <strong>R</strong>epeat <strong>Y</strong>ourself)</li>
+							<li><strong><a href="https://en.wikipedia.org/wiki/Don%27t_repeat_yourself" target="_blank">KISS</a></strong> (<strong>K</strong>eep <strong>I</strong>t <strong>S</strong>imple, <strong>S</strong>tupid)</li>
+							<li><strong><a href="https://en.wikipedia.org/wiki/SOLID_(object-oriented_design)" target="_blank">SOLID</a></strong> (<strong>S</strong>ingle <strong>R</strong>esponsibility, <strong>O</strong>pen-closed, <strong>L</strong>iskov substitution, <strong>I</strong>nterface segregation and <strong>D</strong>ependency inversion)</li>
+						</ul>
+					</section>
+					<section>
+						<h3>SOLID</h3>
+						<table>
+							<thead>
+								<tr>
+									<th>Initial</th>
+									<th></th>
+									<th>Stands for</th>
+									<th>Concept</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th>S</th>
+									<td>SRP</td>
+									<td>Single responsibility principle</td>
+									<td>a class should have only a single responsibility (i.e. only one potential change in the software's specification should be able to affect the specification of the class)</td>
+								</tr>
+								<tr>
+									<th>O</th>
+									<td>OCP</td>
+									<td>Open/closed principle</td>
+									<td>“software entities … should be open for extension, but closed for modification.”</td>
+								</tr>
+								<tr>
+									<th>L</th>
+									<td>LSP</td>
+									<td>Liskov substitution principle</td>
+									<td>“objects in a program should be replaceable with instances of their subtypes without altering the correctness of that program.” See also design by contract.</td>
+								</tr>
+								<tr>
+									<th>I</th>
+									<td>ISP</td>
+									<td>Interface segregation principle</td>
+									<td>“many client-specific interfaces are better than one general-purpose interface.”</td>
+								</tr>
+								<tr>
+									<th>D</th>
+									<td>DIP</td>
+									<td>Dependency inversion principle</td>
+									<td>one should “Depend upon Abstractions. Do not depend upon concretions.”</td>
+								</tr>
+							</tbody>
+						</table>
+						<p>Retrieved from <a href="https://en.wikipedia.org/wiki/SOLID_(object-oriented_design)" target="_blank">Wikipedia</a></p>
+					</section>
+					<section>
+						<h3>Code readability</h3>
+						<ul>
+							<li>Indentation</li>
+							<li>Naming conventions</li>
+							<li>Comments</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Code style</h3>
+						<ul>
+							<li><a href="https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md" target="_blank">PSR2</a></li>
+							<li><a href="https://make.wordpress.org/core/handbook/best-practices/coding-standards/php/" target="_blank">Wordpress</a></li>
+						</ul>
+						<p>Zend Framework, PEAR and Drupal use to have their own standard but are now using PSR2</p>
+					</section>
+					<section>
+						<h3>Naming conventions</h3>
+						<p>Singular/plural, lowercase/uppercase, long or short...</p>
+						<p>Frameworks provide conventions.</p>
+						<p>Examples:</p>
+						<pre><code>lowerCamelCase</code></pre>
+						<pre><code>UpperCamelCase</code></pre>
+						<pre><code>snake_case</code></pre>
+						<pre><code>$i</code></pre>
+						<pre><code>$varThatContainsAComplexObjectMadeOfASublistOfOtherObjects</code></pre>
+					</section>
+					<section>
+						<h3>Indentation</h3>
+						<pre><code class="html">&lt;div&gt;
+    &lt;span&gt;Inner object&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+						<pre><code class="php">&lt;php
+foreach ($items as $item) {
+    // inner instruction indented
+    var_dump($item);
+}</code></pre>
+						<img src="dbz-indentation.jpg" alt="Dragon Ball Z indentation problem" style="max-height: 250px;">
+					</section>
+					<section>
+						<h3>Design pattern</h3>
+						<p>A design pattern is a formalized solution to a well known problem, a recipe for developers.</p>
+						<p><a href="http://www.fluffycat.com/PHP-Design-Patterns/" target="_blank">fluffycat: PHP Design Patterns</a></p>
+						<p><a href="http://martinfowler.com/design.html" target="_blank">Martin Fowler's website: generic design patterns</a></p>
+					</section>
+					<section>
+						<h3>Tools</h3>
+						<a href="http://phpqatools.org/" target="_blank">PHP QA TOOLS</a>
+					</section>
+					<section>
+						<h2>Questions?</h3>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Development workflow</h2>
+					</section>
+					<section>
+						<h3>Versioning</h3>
+						<p>Mainly using GIT but some people still use Subversion</p>
+						<ul>
+							<li>Centralized workflow</li>
+							<li>Feature Branch Workflow</li>
+							<li>Gitflow Workflow</li>
+							<li>Forking Workflow</li>
+						</ul>
+						<p><a href="https://www.atlassian.com/git/tutorials/comparing-workflows/" target="_blank">Atlassian tutorial: comparing workflows</a></p>
+					</section>
+					<section>
+						<h3>Forks and pull requests</h3>
+						<ul>
+							<li>Help with managing read/write accesses</li>
+							<li>Provide a good way to do some code review</li>
+						</ul>
+					</section>
+					<section>
+						<h3>... Driven Development</h3>
+						<ul>
+							<li>TDD: Test Driven Development</li>
+							<li>BDD: Behaviour Driven Development</li>
+							<li>DDD: Domain Driven Design</li>
+							<li>SODD<span class="fragment">: StackOverflow Driven Development</span></li>
+						</ul>
+						<p><a href="http://joshldavis.com/2013/05/27/difference-between-tdd-and-bdd/" target="_blank">Difference between TDD and BDD</a></p>
+						<p><a href="https://dzone.com/articles/stack-overflow-driven-development-sodd-its-really" target="_blank">Discussing SODD</a></p>
+					</section>
+					<section>
+						<h3>Commercial workflow example:</h3>
+						<h4>Atlassian</h4>
+						<ul>
+							<li>Documents: Confluence</li>
+							<li>Design / issues tracking: Jira Agile</li>
+							<li>Code: Bitbucket / Stash</li>
+							<li>Clients: Jira Service Desk</li>
+							<li>Instant messaging: HipChat</li>
+							<li>Continuous integration / deployment: Bamboo</li>
+							<li>Code quality: Crucible</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Open source development example</h3>
+						<ul>
+							<li>Documents: ?</li>
+							<li>Design / issues tracking: Github issues / Jira / Jetbrains Youtrack</li>
+							<li>Code: Github</li>
+							<li>Clients: none => issues on Github</li>
+							<li>Instant messaging: IRC / Slack / Gitter</li>
+							<li>Continuous integration / deployment: TravisCI</li>
+							<li>Code quality: Sensiolabs Insight / Code climate</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Questions?</h2>
+					</section>
+				</section>
+				<section>
+					<h2>Further reading</h2>
+					<ul>
+						<li>
+							<a href="http://www.stuartherbert.com/" target="_blank">
+								Stuart Herbert blog/presentations
+							</a>
+						</li>
+						<li>
+							<a href="http://phpqatools.org/" target="_blank">
+								The PHP Quality Assurance Toolchain
+							</a>
+						</li>
+						<li>
+							<a href="https://www.phproundtable.com/episode/keeping-code-simple-in-a-design-pattern-world" target="_blank">
+								PHP Roundtable: Design Patternmania
+							</a>
+						</li>
+					</ul>
+				</section>
+			</div>
+		</div>
+		<style>
+			.reveal table th, .reveal table td {
+				font-size: 0.6em;
+			}
+			.splitted {
+				width: 100%;
+			}
+			.splitted > div {
+				width: 50%;
+				float: left;
+			}
+			.splitted > div blockquote {
+				font-size: 0.8em;
+			}
+			.reveal table img {
+				width: 100%;
+				border: none;
+				-webkit-box-shadow: none;
+				-moz-box-shadow: none;
+				box-shadow: none;
+			}
+		</style>
+		<script src="../../lib/js/head.min.js"></script>
+		<script src="../../js/reveal.js"></script>
+		<script>
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				slideNumber: true,
+				slideNumber: 'c / t',
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+				dependencies: [
+					{ src: '../../lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: '../../plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../../plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../../plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: '../../plugin/zoom-js/zoom.js', async: true },
+					{ src: '../../plugin/notes/notes.js', async: true }
+				]
+			});
+		</script>
+      <a href="https://github.com/tdutrion/set08101-2016"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/567c3a48d796e2fc06ea80409cc9dd82bf714434/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png"></a>
+	</body>
+</html>
