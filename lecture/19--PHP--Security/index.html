@@ -111,6 +111,7 @@
 						<h3>SSL/TLS</h3>
 						<p>Don't send unencrypted password on the network!</p>
 						<p><a href="https://serversforhackers.com/series/ssl-certificates" target="_blank">SSL certificate videos on ServersForHackers</a></p>
+						<p>Free SSL certificates with simplified installation thanks to <a href="https://letsencrypt.org" target="_blank">Letsencrypt</a>.</p>
 					</section>
 					<section>
 						<h2>Using Known Vulnerable Components</h2>
@@ -180,6 +181,12 @@
 							<li>Don't write your own crypto</li>
 						</ul>
 					</section>
+					<section>
+			                        <h2>Random values</h2>
+			                        <p>PHP <a href="http://php.net/manual/en/function.rand.php" target="_target">rand</a> function does not provide completely random values.</p>
+			                        <p>In PHP 7+, you can use <a href="http://php.net/manual/en/function.random-int.php" target="_blank">random_int</a> and <a href="http://php.net/manual/en/function.random-bytes.php" target="_blank">random_bytes</a></p>
+			                        <p>In PHP 5.2+, you can use the polyfill <a href="https://github.com/paragonie/random_compat" target="_blank">random_compat</a> from ParagonIE.</p>
+		                    	</section>
 				</section>
 				<section>
 					<h2>Further reading</h2>
