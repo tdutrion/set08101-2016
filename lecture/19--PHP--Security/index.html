@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>SET08101 - Web Technologies - Lecture 19</title>
+
+		<meta name="description" content="PHP: Security">
+		<meta name="author" content="Thomas Dutrion">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="../../css/reveal.css">
+		<link rel="stylesheet" href="../../css/theme/napier.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="../../lib/css/github.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? '../../css/print/pdf.css' : '../../css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h4>SET08101</h4>
+					<h1>Web Technologies</h1>
+					<h4>Security</h4>
+				</section>
+				<section>
+					<section>
+						<h2>Web security overview</h2>
+					</section>
+					<section>
+						<h2>OWASP</h2>
+						<p><a href="https://www.owasp.org/index.php/Top10" target="_blank">Top 10 vulnerabilities</a> (data from 2013 below)</p>
+						<ol>
+							<li>Injection</li>
+							<li>Broken Authentication and Session Management</li>
+							<li>Cross-Site Scripting (XSS)</li>
+							<li>Insecure Direct Object References</li>
+							<li>Security Misconfiguration</li>
+							<li>Sensitive Data Exposure</li>
+							<li>Missing Function Level Access Control</li>
+							<li>Cross-Site Request Forgery (CSRF)</li>
+							<li>Using Known Vulnerable Components</li>
+							<li>Unvalidated Redirects and Forwards</li>
+						</ol>
+					</section>
+					<section>
+						<h2>Injections attacks</h2>
+						<p><a href="http://phpsecurity.readthedocs.org/en/latest/Injection-Attacks.html" target="_blank">phpsecurity documentation</a></p>
+						<ul>
+							<li><strong>SQL Injection</strong></li>
+							<li><strong>Code Injection</strong></li>
+							<li>Log Injection</li>
+							<li>Path Traversal</li>
+							<li>XML Injection</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Authentication and sessions</h2>
+						<ul>
+							<li>Check browser user agent</li>
+							<li>Check session remote IP address</li>
+						</ul>
+						<p>Example: <a href="http://framework.zend.com/manual/current/en/modules/zend.session.validator.html" target="_blank">Zend Session Validator</a></p>
+					</section>
+					<section>
+						<h2>Authentication and sessions</h2>
+						<ul>
+							<li>Two Factor authentication</li>
+						</ul>
+						<p>More info: <a href="http://akrabat.com/wp-content/uploads/2015-10-04-phpnw-2fa.pdf" target="_blank">Rob Allen: Secure your app with 2FA - PHPNW 2015</a></p>
+					</section>
+					<section>
+						<h2>Brute force attack</h2>
+						<ul>
+							<li>Don't use "admin" as username (easy)</li>
+							<li>
+								Use good password (recommended)
+								<ul>
+									<li>Do not force complex passwords! => bad UX</li>
+									<li>Do not force complex passwords! => people write them down</li>
+								</ul>
+							</li>
+							<li>Limit number of login attempt</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Cross site scripting</h2>
+						<p>Inserting unwanted script (usually javascript) to retrieve any user information and send it somewhere to be stored.</p>
+						<p><a href="https://www.youtube.com/watch?v=D7KndoW1Tj8" target="_blank">Codecourse: PHP Security: XSS (Cross-site Scripting)</a></p>
+					</section>
+					<section>
+						<h2>Transport layer security</h2>
+						<h3>SSL/TLS</h3>
+						<p>Don't send unencrypted password on the network!</p>
+						<p><a href="https://serversforhackers.com/series/ssl-certificates" target="_blank">SSL certificate videos on ServersForHackers</a></p>
+					</section>
+					<section>
+						<h2>Using Known Vulnerable Components</h2>
+						<ul>
+							<li>
+								Update your servers (PHP, Mysql, Apache, Nginx)
+								<ul>
+									<li><a href="https://www.cvedetails.com/product/128/PHP-PHP.html?vendor_id=74" target="_blank">CVE Security Vulnerability Datasource</li>
+									<li><a href="http://php.net/supported-versions.php" target="_blank">PHP versions</a></li>
+								</ul>
+							</li>
+							<li>
+								Update your libraries 
+								<ul>
+									<li>Disable auto-update for versionning, screen code in diffs</li>
+									<li>Make sure you are using security advisors with Composer (<a href="https://github.com/Roave/SecurityAdvisories" target="_blank">Roave security advisories</a> or <a href="https://security.sensiolabs.org/" target="_blank">Sensio Labs security advisories</a>)</li>
+								</ul>
+							</li>
+							<li>
+								Source your third-party libraries wisely (Roave, SensioLabs, <a href="https://twitter.com/ircmaxell" target="_blank">@ircmaxell</a>, <a href="https://twitter.com/enygma" target="_blank">@enygma</a>, <a href="https://twitter.com/SecuringPHP" target="_blank">@SecuringPHP</a> and <a href="https://twitter.com/ParagonIE">@ParagonIE</a> are trustworthy)
+							</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Be fast</h2>
+						<h3>Use Twitter and Slack/IRC/HipChat...</h3>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Use PHP</h2>
+						<h3>Not whatever PHP used to be</h3>
+					</section>
+					<section>
+						<h2>Preferably current stable</h2>
+						<p><a href="http://php.net/supported-versions.php" target="_blank">PHP supported versions</a></p>
+						<img src="php-versions.png" alt="PHP supported versions graph from php.net website">
+					</section>
+					<section>
+						<h2>Passwords</h2>
+						<p>Do not use md5, sha1 or similar for passwords.</p>
+						<p>In PHP 5.5 +</p>
+						<ul>
+							<li><a href="http://php.net/manual/en/function.password-hash.php" target="_blank">password_hash</a></li>
+							<li><a href="http://php.net/manual/en/function.password-verify.php" target="_blank">password_verify</a></li>
+						</ul>
+						<p><a href="https://github.com/ircmaxell/password_compat" target="_blank">password_compat</a> from Anthony Ferrara can be used as a polyfill for PHP 5.3.7+</p>
+					</section>
+					<section>
+						<h2>Database access</h2>
+						<ul>
+							<li>Use PDO or mysqli, no mysql_* functions (deprecated, no database resource required explicitely)</li>
+							<li>Use prepared statements</li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>In a nutshell</h2>
+					</section>
+					<section>
+						<ul>
+							<li>Never trust [user] input</li>
+							<li>Always filter output</li>
+							<li>Keep it simple - complexity increases the likelihood of security holes</li>
+							<li>Principle of least privilege</li>
+							<li>Don't write your own crypto</li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<h2>Further reading</h2>
+					<ul>
+						<li>
+							<a href="https://www.youtube.com/watch?v=qMkiZ3Ehv5M" target="_blank">
+								Gary Hockin: OWASP top 10 and PHP
+							</a>
+						</li>
+						<li>
+							<a href="https://www.youtube.com/watch?v=5r5GkJL7Dgg" target="_blank">
+								PHP Security, Redefined - Chris Cornutt - AppSecUSA 2015
+							</a>
+						</li>
+						<li>
+							<a href="http://blog.ircmaxell.com/" target="_blank">
+								Anthony Ferrara's blog
+							</a>
+						</li>
+						<li>
+							<a href="http://phpsecurity.readthedocs.org/en/latest/" target="_blank">
+								Survive The Deep End: PHP Security
+							</a>
+						</li>
+					</ul>
+				</section>
+			</div>
+		</div>
+		<style>
+			.reveal table th, .reveal table td {
+				font-size: 0.6em;
+			}
+			.splitted {
+				width: 100%;
+			}
+			.splitted > div {
+				width: 50%;
+				float: left;
+			}
+			.splitted > div blockquote {
+				font-size: 0.8em;
+			}
+			.reveal table img {
+				width: 100%;
+				border: none;
+				-webkit-box-shadow: none;
+				-moz-box-shadow: none;
+				box-shadow: none;
+			}
+		</style>
+		<script src="../../lib/js/head.min.js"></script>
+		<script src="../../js/reveal.js"></script>
+		<script>
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				slideNumber: true,
+				slideNumber: 'c / t',
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+				dependencies: [
+					{ src: '../../lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: '../../plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../../plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../../plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: '../../plugin/zoom-js/zoom.js', async: true },
+					{ src: '../../plugin/notes/notes.js', async: true }
+				]
+			});
+		</script>
+      <a href="https://github.com/tdutrion/set08101-2016"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/567c3a48d796e2fc06ea80409cc9dd82bf714434/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png"></a>
+	</body>
+</html>
