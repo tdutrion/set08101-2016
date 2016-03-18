@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<title>SET08101 - Web Technologies - Lecture 21</title>
+
+		<meta name="description" content="Frontend: Bootstrap">
+		<meta name="author" content="Thomas Dutrion">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="../../css/reveal.css">
+		<link rel="stylesheet" href="../../css/theme/napier.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="../../lib/css/github.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? '../../css/print/pdf.css' : '../../css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h4>SET08101</h4>
+					<h1>Web Technologies</h1>
+					<h4>Bootstrap</h4>
+				</section>
+				<section>
+					<section>
+						<h2>Frontend frameworks</h2>
+					</section>
+					<section>
+						<h2>Definition</h2>
+            <p>A framework is a standardized set of concepts, practices and criteria for dealing with a common type of problem[...]</p>
+            <p>[...]package made up of a structure of files and folders of standardized code (HTML, CSS, JS documents etc.)[...]</p>
+            <p>From <a href="http://www.awwwards.com/what-are-frameworks-22-best-responsive-css-frameworks-for-web-design.html">awwwards.com</a></p>
+					</section>
+					<section>
+            <h2>Problems</h2>
+						<ul>
+							<li>responsiveness</li>
+							<li>navigation bar</li>
+							<li>grid</li>
+							<li>buttons</li>
+							<li>...</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Solutions</h2>
+            <h3>CSS media queries</h3>
+						<pre><code class="html">&lt;head&gt;
+    &lt;style&gt;
+        .wrapper {
+            border: solid 1px #666;
+            padding: 5px 10px;
+            margin: 40px;
+        }
+        @media screen and (max-width: 600px) {
+            .wrapper {
+                background: #F9C;
+            }
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class=&quot;wrapper&quot;&gt;pink when viewing area < 600px&lt;/div&gt;
+&lt;/body&gt;</code></pre>
+						<p><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Media_Queries/Using_media_queries" target="_blank">MDN: media queries</a></p>
+					</section>
+					<section>
+						<h2>Frameworks</h2>
+						<ul>
+							<li><a href="http://getbootstrap.com/" target="_blank">(Twitter) Bootstrap</a></li>
+							<li><a href="http://foundation.zurb.com/" target="_blank">Zurb Foundation</a></li>
+							<li><a href="https://www.getmdl.io/" target="_blank">Google Material Design Lite</a></li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Using bootstrap</h2>
+						<h3>Design for developers</h3>
+					</section>
+					<section>
+						<h2>What is it?</h2>
+						<ul>
+							<li>A set of css classes for positions and styles</li>
+							<li>Optional javascript libraries (jQuery plugins)</li>
+							<li>Icons</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Philosophy</h2>
+						<p>"Easy to use"</p>
+						<p>Just use classes to enable styles to your elements:</p>
+						<pre><code class="html">&lt;button class=&quot;btn btn-default&quot;&gt;Default&lt;/button&gt;</code></pre>
+					</section>
+					<section>
+						<h2>Positionning</h2>
+						<p>Bootstrap is providing a 12 columns grid system.</p>
+						<img src="bootstrap-grid-1.png" alt="Bootstrap grid">
+						<p>It also supports nesting rows.</p>
+						<img src="bootstrap-grid-2.png" alt="Nested Bootstrap grid">
+					</section>
+					<section>
+						<h2>Layout</h2>
+						<p>A page contains a <code>container</code>, responsible for the overall width of the block.</p>
+						<p><code>container</code>s contain <code>row</code>s, and <code>row</code>s contain <code>col</code>umns.</p>
+						<pre><code>&lt;div class=&quot;container&quot;&gt;
+    &lt;div class=&quot;row&quot;&gt;
+        &lt;div class=&quot;col-lg-3&quot;&gt;Menu&lt;/div&gt;
+        &lt;div class=&quot;col-lg-9&quot;&gt;Content&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+					</section>
+					<section>
+						<p>See the <a href="http://getbootstrap.com/css/" target="_blank">documentation</a> for more features.</p>
+						<p>My favourites are tables and buttons.</p>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Use case</h2>
+						<h3><a href="http://www.soc.napier.ac.uk/~cs66/" target="_blank">Andrew's page</a></h3>
+					</section>
+					<section>
+						<img src="andrew-desktop.png" alt="Screenshot of Andrew's site on desktop">
+					</section>
+					<section>
+						<img src="andrew-iphone.png" alt="Screenshot of Andrew's site on iPhone">
+					</section>
+					<section>
+						<h2>Include bootstrap</h2>
+						<pre><code class="html">&lt;link rel=&quot;stylesheet&quot;
+  type=&quot;text/css&quot;
+  href=&quot;https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css&quot;&gt;</code></pre>
+						<p>Remove Andrew's css</p>
+					</section>
+					<section>
+						<h2>Add your first class</h2>
+						<pre><code>&lt;div class=&quot;container&quot;&gt;
+  &lt;div class=&quot;jumbotron&quot;&gt;
+    &lt;h1&gt;Andrew Cumming&lt;/h1&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+					</section>
+					<section>
+						<h2>Add a table</h2>
+						<pre><code>&lt;table class=&quot;table table-striped table-condensed table-bordered table-hover&quot;&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Office:&lt;/th&gt;
+    &lt;td&gt; Room C49 at the Merchiston campus, ext. 2753.&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Postal:&lt;/th&gt;
+    &lt;td&gt;10 Colinton Rd, EH10 5DT&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Telephone:&lt;/th&gt;
+    &lt;td&gt; (0131) 455 2753&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Email:&lt;/th&gt;
+    &lt;td&gt;
+      &lt;script&gt;
+        var en = &quot;n&quot;;
+        document.writeln(&quot;a.cummi&quot; + en + &quot;g@napier.ac.uk&quot;);
+      &lt;/script&gt;
+    &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;th&gt;MCSD&lt;/th&gt;
+    &lt;td&gt;Microsoft Certified Solutions Developer&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;</code></pre>
+					</section>
+					<section>
+						<h2>Create columns</h2>
+						<pre><code>&lt;h3&gt;Professional&lt;/h3&gt;
+    &lt;div class=&quot;row&quot;&gt;
+      &lt;div class=&quot;col-md-4&quot;&gt;
+        &lt;h4&gt;Teaching&lt;/h4&gt;
+        &lt;ul&gt;
+          &lt;li&gt;&lt;a href='http://nmyster.co.uk/timetable/'&gt;Neil Stewart&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href='http://www.g04t.x10.mx/timetable/index.php'&gt;Luke&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;http://timetableing.napier.ac.uk/reporting/individual;student+set;name;co.cC1f-a%0D%0Aco.cC1f-b%0D%0Aco.cC1f-c%0D%0Aco.cC1f-d%0D%0A?days=1-5&amp;weeks=1-13;16-18&amp;periods=1-9&amp;template=SWSCUST+student+set+individual&amp;height=100&amp;week=100&quot;&gt;Year 1 Computing 2006/7&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;http://progzoo.net/&quot;&gt;CO12002 Java&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;xml&quot;&gt;CO32036 XML&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;tm&quot;&gt;Turing Machines&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;access&quot;&gt;MS Access tips&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;giip&quot;&gt;Internet Programming&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;http://www.dcs.napier.ac.uk/course-notes/sml/manual.html&quot;&gt;SML&lt;/a&gt; &lt;a href=&quot;comp&quot;&gt;Proofs&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;http://sqlzoo.net&quot;&gt;SQL&lt;/a&gt; &lt;a href=&quot;http://gentle.org.uk/sql/&quot;&gt;SQL&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;col-md-4&quot;&gt;
+        &lt;h4&gt;Research/KTP/Training&lt;/h4&gt;
+        &lt;ul&gt;
+            &lt;li&gt;&lt;a href=&quot;http://www.specknet.org&quot;&gt;Specknet&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;#conf&quot;&gt;Conferences&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;http://www.nmi.org.uk&quot;&gt;NMI&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;http://www.scapatech.com&quot;&gt;Scapa&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;http://www.agilent.com&quot;&gt;Agilent&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;col-md-4&quot;&gt;
+        &lt;h4&gt;Other Work&lt;/h4&gt;
+        &lt;ul&gt;
+          &lt;li&gt;&lt;a href='http://www.headfirstlabs.com/PMP/pmp_exam/v1/quiz.html'&gt;PMP Practice Exam&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href='http://www.oreilly.com/catalog/sqlhks/'&gt;SQL Hacks&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;http://www.soc.napier.ac.uk/publication/op/peoplepublications/peopleid/19&quot;&gt;Publications&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;http://www.bloodaxebooks.com&quot;&gt;Bloodaxe&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;http://www.netlex.net&quot;&gt;NETLEX&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;http://www.quantumpeople.com&quot;&gt;Quantum&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;http://www.prosperity4.com&quot;&gt;Prosperity4&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;http://www.ljresearch.co.uk&quot;&gt;LJ Research&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;</code></pre>
+					</section>
+					<section>
+						<h2>Responsiveness</h2>
+						<p>It is responsive by default.</p>
+						<p>Just choose the columns name carefully.</p>
+					</section>
+				</section>
+				<section>
+					<h2>Further reading</h2>
+					<ul>
+						<li>
+							<a href="http://getbootstrap.com/" target="_blank">
+								Bootstrap documentation
+							</a>
+						</li>
+						<li>
+							<a href="https://developers.google.com/web/fundamentals/design-and-ui/responsive/?hl=en" target="_blank">
+								Google Web fundamentals: Responsive Layouts
+							</a>
+						</li>
+					</ul>
+				</section>
+			</div>
+		</div>
+		<style>
+			.reveal table th, .reveal table td {
+				font-size: 0.6em;
+			}
+			.splitted {
+				width: 100%;
+			}
+			.splitted > div {
+				width: 50%;
+				float: left;
+			}
+			.splitted > div blockquote {
+				font-size: 0.8em;
+			}
+			.reveal table img {
+				width: 100%;
+				border: none;
+				-webkit-box-shadow: none;
+				-moz-box-shadow: none;
+				box-shadow: none;
+			}
+		</style>
+		<script src="../../lib/js/head.min.js"></script>
+		<script src="../../js/reveal.js"></script>
+		<script>
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				slideNumber: true,
+				slideNumber: 'c / t',
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+				dependencies: [
+					{ src: '../../lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: '../../plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../../plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../../plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: '../../plugin/zoom-js/zoom.js', async: true },
+					{ src: '../../plugin/notes/notes.js', async: true }
+				]
+			});
+		</script>
+      <a href="https://github.com/tdutrion/set08101-2016"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/567c3a48d796e2fc06ea80409cc9dd82bf714434/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png"></a>
+	</body>
+</html>
