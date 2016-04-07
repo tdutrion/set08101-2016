@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>SET08101 - Web Technologies - Lecture 23</title>
+    <meta content="Web standards" name="description">
+    <meta content="Thomas Dutrion" name="author">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black-translucent" name=
+    "apple-mobile-web-app-status-bar-style">
+    <meta content=
+    "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui"
+    name="viewport">
+    <link href="../../css/reveal.css" rel="stylesheet">
+    <link href="../../css/theme/napier.css" id="theme" rel="stylesheet">
+    <!-- Code syntax highlighting -->
+    <link href="../../lib/css/github.css" rel="stylesheet">
+    <!-- Printing and PDF exports -->
+
+    <script>
+            var link = document.createElement( 'link' );
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            link.href = window.location.search.match( /print-pdf/gi ) ? '../../css/print/pdf.css' : '../../css/print/paper.css';
+            document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script><!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <section>
+                <h4>SET08101</h4>
+                <h1>Web Technologies</h1>
+                <h4>Web standards</h4>
+            </section>
+            <section>
+                <section>
+                    <h2>What is a standard?</h2>
+                </section>
+                <section>
+                    <h3>Definition from: Orbit Media Solution</h3>
+                    <ul>
+                        <li>Standard: 80% or more of websites use the same
+                        design approach</li>
+                        <li>Convention: 50 – 79% of websites use the same
+                        design approach</li>
+                        <li>Confusion: 49% or fewer websites conform, no single
+                        design approach dominates</li>
+                    </ul>
+                    <p>From: <a href=
+                    "https://www.orbitmedia.com/blog/web-design-standards/"
+                    target="_blank">Web Design Standards: 10 Best Practices on
+                    the Top 50 Websites</a></p>
+                </section>
+                <section>
+                    <h3>Definition from: World Wide Web Consortium</h3>
+                    <blockquote>
+                        [...] documents that define Web technologies [...]
+                        follow a process designed to promote consensus,
+                        fairness, public accountability, and quality. [...] W3C
+                        publishes Recommendations, which are considered Web
+                        standards.
+                    </blockquote>
+                </section>
+                <section>
+                    <h2>Areas of standardisation</h2>
+                    <ul>
+                        <li>Coding standards</li>
+                        <li>Accessibility standards</li>
+                        <li>Brand standards</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Standards origin</h2>
+                    <table>
+                        <tr>
+                            <th>Source</th>
+                            <th>Rationale</th>
+                        </tr>
+                        <tr>
+                            <td>Laws</td>
+                            <td>Guarantee equity of access to the
+                            information</td>
+                        </tr>
+                        <tr>
+                            <td>Consortium (W3C)</td>
+                            <td>"lead the Web to its full potential", for both
+                            technical and human respect aspects</td>
+                        </tr>
+                        <tr>
+                            <td>Companies/institutions</td>
+                            <td>Improve user experience to ensure a better
+                            transmission of their messages to targets</td>
+                        </tr>
+                    </table>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h2>There are no web standards</h2>
+                    <h2 class="fragment">Only recommendations</h2>
+                </section>
+                <section>
+                    <h2>W3C: World Wide Web Consortium</h2>
+                    <ul>
+                        <li>Founded in 1994 by Tim Berners-Lee, inventor of the
+                        World Wide Web in 1989.</li>
+                        <li>Support a <a href=
+                        "https://www.w3.org/Consortium/mission#vision"
+                            target="_blank">vision</a> (Rich Interaction,
+                            offering data and services, safe place) by
+                            formalising <a href=
+                            "https://www.w3.org/Consortium/mission#principles"
+                            target="_blank">design principles</a> (web for all
+                            / on everything).
+                        </li>
+                        <li>Offers technical recommendations that are / should
+                        be used as <a href=
+                        "https://www.w3.org/TR/tr-technology-stds" target=
+                        "_blank">standards</a>.
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>HTML and xHTML</h2>
+                    <p>Decribes how web pages structure should be formatted.
+                    This is used by web browser vendors to create their
+                    rendering software.</p>
+                    <p>Focuses on both technical (syntax) and semantic
+                    aspects.</p>
+                    <p>xHTML is the strictly formatted version of HTML,
+                    including a <a href=
+                    "https://www.w3.org/TR/xhtml11/xhtml11_dtd.html" target=
+                    "_blank">Document Type Definition (DTD)</a> against which
+                    the code can be checked easily.</p>
+                    <p>A list of doctype declaration is available on <a href=
+                    "http://www.w3schools.com/tags/tag_doctype.asp" target=
+                    "_blank">W3Schools</a> if you want to have a look at
+                    different DTD.</p>
+                </section>
+                <section>
+                    <h2>Web Accessibility Initiative (WAI)</h2>
+                    <p><a href="https://www.w3.org/WAI/" target=
+                    "_blank">Official website</a></p>
+                    <p>Provides "strategies, guidelines, and resources to help
+                    make the Web accessible to people with disabilities".</p>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h2>Laws</h2>
+                </section>
+                <section>
+                    <h2>Laws apply on the web</h2>
+                    <p>You just need to find out which ones...</p>
+                    <p>Usually covering:</p>
+                    <ul>
+                        <li>Accessibility</li>
+                        <li>Cookies (user traking) / privacy</li>
+                        <li>Security (payment processing, health data
+                        storage)</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Accessibility</h2>
+                    <p>In U.K., the main law on web accessibility is the
+                    <a href=
+                    "http://www.legislation.gov.uk/ukpga/2010/15/contents"
+                    target="_blank">Equality Act 2010</a></p>
+                    <p>Failure to comply may be legally considered as your
+                    responsibility as professional web development
+                    practitioner.</p>
+                    <p>According to the government service design manual on
+                    <a href=
+                    "https://www.gov.uk/service-manual/user-centred-design/accessibility"
+                    target="_blank">accessibility</a>, you should aim for a WAI
+                    WCAG 2.0 AA validation.</p>
+                    <p>For other countries, please refer to <a href=
+                    "http://www.powermapper.com/blog/government-accessibility-standards/">
+                    Powermapper government accessibility standards</a>
+                    list.</p>
+                </section>
+                <section>
+                    <h2>Cookies / Privacy</h2>
+                    <p>See the <a href=
+                    "https://www.cookielaw.org/the-cookie-law/" target=
+                    "_blank">"cookie law"</a> and local adaptations.</p>
+                    <p>No prosecution up to now, implementations often found
+                    intrusive and bad for user experience.</p>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h2>Institutions</h2>
+                    <ul>
+                        <li>US government:
+                            <ul>
+                                <li>
+                                    <a href=
+                                    "https://playbook.cio.gov/designstandards/"
+                                    target="_blank">Design standards</a>
+                                </li>
+                                <li>
+                                    <a href="http://www.usability.gov/" target=
+                                    "_blank">Accessibility guide</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>UK government:
+                            <ul>
+                                <li>
+                                    <a href="https://www.gov.uk/service-manual"
+                                    target="_blank">Design standards</a>
+                                </li>
+                                <li>
+                                    <a href=
+                                    "https://www.gov.uk/service-manual/user-centred-design/accessibility"
+                                    target="_blank">Accessibility guide</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </section>
+            </section>
+        </div>
+    </div>
+    <style>
+            .reveal table th, .reveal table td {
+                font-size: 0.6em;
+            }
+            .splitted {
+                width: 100%;
+            }
+            .splitted > div {
+                width: 50%;
+                float: left;
+            }
+            .splitted > div blockquote {
+                font-size: 0.8em;
+            }
+            .reveal table img {
+                width: 100%;
+                border: none;
+                -webkit-box-shadow: none;
+                -moz-box-shadow: none;
+                box-shadow: none;
+            }
+    </style>
+    <script src="../../lib/js/head.min.js">
+    </script> 
+    <script src="../../js/reveal.js">
+    </script> 
+    <script>
+            // Full list of configuration options available at:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+                slideNumber: true,
+                slideNumber: 'c / t',
+                transition: 'slide', // none/fade/slide/convex/concave/zoom
+                dependencies: [
+                    { src: '../../lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    { src: '../../plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: '../../plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: '../../plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    { src: '../../plugin/zoom-js/zoom.js', async: true },
+                    { src: '../../plugin/notes/notes.js', async: true }
+                ]
+            });
+    </script> <a href="https://github.com/tdutrion/set08101-2016"><img alt=
+    "Fork me on GitHub" data-canonical-src=
+    "https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png"
+    src=
+    "https://camo.githubusercontent.com/567c3a48d796e2fc06ea80409cc9dd82bf714434/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f6461726b626c75655f3132313632312e706e67"
+    style="position: absolute; top: 0; left: 0; border: 0;"></a>
+</body>
+</html>
